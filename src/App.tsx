@@ -20,6 +20,9 @@ function App() {
         >
           Learn React
         </a>
+        <a href="https://github.com/login/oauth/authorize?client_id=f7a27eb39a7047d21fbd">
+          Login with github
+        </a>
       </header>
     </div>
   );
