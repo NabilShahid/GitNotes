@@ -1,6 +1,8 @@
 import * as axios from 'axios';
 import APP_SERVER_API_BASE_URL, {
   APP_SERVER_API_CALLS,
+  GITHUB_BASE_URL,
+  GITHUB_API_CALLS,
 } from '../constants/api-info';
 import { performGetRequest } from './request-methods';
 
@@ -12,6 +14,13 @@ export const authenticateUser = async (
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${APP_SERVER_API_BASE_URL}/${APP_SERVER_API_CALLS.AuthenticateUser}?client_id=${clientId}&code=${code}`,
+  );
+  return result;
+};
+
+export const getCurrentUserInfo = async (): Promise<axios.AxiosResponse> => {
+  const result = await performGetRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
   );
   return result;
 };

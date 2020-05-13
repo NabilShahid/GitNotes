@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { authenticateUser } from '../../services/apis';
+import { authenticateUser, getCurrentUserInfo } from '../../services/apis';
 import { CLIENT_ID } from '../../constants/github-app-info';
 import { saveToken } from '../../services/local-storage';
 
@@ -11,8 +11,10 @@ const validateSession = async (): Promise<string> => {
 };
 
 const OAuthRedirect: React.SFC = () => {
-  validateSession().then((result: string) => {
+  validateSession().then(async (result: string) => {
     saveToken(result);
+    const res = await getCurrentUserInfo();
+    console.log(res);
   });
   return (
     <div>
