@@ -4,12 +4,11 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch,
-  useParams,
 } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main/Main';
 import OAuthRedirect from './components/Redirect/Redirect';
+import ROUTES from './constants/routes';
 
 function App() {
   return (
@@ -18,18 +17,18 @@ function App() {
         <div>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to={ROUTES.Home}>Home</Link>
             </li>
             <li>
-              <Link to="/redirect">Login</Link>
+              <Link to={ROUTES.Redirect}>Login</Link>
             </li>
           </ul>
 
           <Switch>
-            <Route path="/redirect">
+            <Route path={ROUTES.Redirect}>
               <OAuthRedirect />
             </Route>
-            <Route path="/">
+            <Route path={ROUTES.Home}>
               <Main />
             </Route>
           </Switch>
