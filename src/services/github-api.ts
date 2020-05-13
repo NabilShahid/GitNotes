@@ -1,5 +1,7 @@
 import * as axios from 'axios';
-import API_BASE_URL, { API_CALLS } from '../constants/api-info';
+import APP_SERVER_API_BASE_URL, {
+  APP_SERVER_API_CALLS,
+} from '../constants/api-info';
 import { performGetRequest } from './requests';
 
 export default 1;
@@ -9,7 +11,7 @@ export const authenticateUser = async (
   code: string,
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
-    `${API_BASE_URL}/${API_CALLS.AuthenticateUser}?client_id=${clientId}&code=${code}`,
+    `${APP_SERVER_API_BASE_URL}/${APP_SERVER_API_CALLS.AuthenticateUser}?client_id=${clientId}&code=${code}`,
   );
   return result;
 };
