@@ -9,6 +9,7 @@ import './App.css';
 import Main from './components/Main/Main';
 import OAuthRedirect from './components/Redirect/Redirect';
 import ROUTES from './constants/routes';
+import { REDIRECT_URL } from './constants/github-app-info';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
               <Link to={ROUTES.Home}>Home</Link>
             </li>
             <li>
-              <Link to={ROUTES.Redirect}>Login</Link>
+              <a href={REDIRECT_URL}>Login</a>
             </li>
           </ul>
 
