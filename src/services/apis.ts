@@ -2,7 +2,7 @@ import * as axios from 'axios';
 import APP_SERVER_API_BASE_URL, {
   APP_SERVER_API_CALLS,
 } from '../constants/api-info';
-import { performGetRequest } from './requests';
+import { performGetRequest } from './request-methods';
 
 export default 1;
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { authenticateUser } from '../../services/github-api';
+import { authenticateUser } from '../../services/apis';
 import { CLIENT_ID } from '../../constants/github-app-info';
+import { saveToken } from '../../services/local-storage';
 
 const validateSession = async (): Promise<string> => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -10,7 +11,9 @@ const validateSession = async (): Promise<string> => {
 };
 
 const OAuthRedirect: React.SFC = () => {
-  validateSession();
+  validateSession().then((result: string) => {
+    saveToken(result);
+  });
   return (
     <div>
       Redirecting...
