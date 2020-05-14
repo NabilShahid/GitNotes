@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { authenticateUser, getCurrentUserInfo } from '../../services/apis';
 import { CLIENT_ID } from '../../constants/github-app-info';
 import { saveToken } from '../../services/local-storage';
+import setUser from '../../redux/actions/user-actions';
+import { GithubUser } from '../../types/common-types';
 
 const validateSession = async (): Promise<string> => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -26,5 +30,20 @@ const OAuthRedirect: React.SFC = () => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setUser: (userPayload: GithubUser) => {
+      dispatch(setUser(userPayload));
+    },
+  };
+};
 
-export default OAuthRedirect;
+// const mapStateToProps = (state) => {
+//   return {
+//     goals: state.goalReducer.Goals,
+//     habits: state.habitReducer.Habits,
+//     userEmail: state.userReducer.User.Email,
+//   };
+// };
+
+export default connect(null, mapDispatchToProps)(OAuthRedirect);

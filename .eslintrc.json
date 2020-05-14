@@ -50,7 +50,8 @@
             }
          ],
          "no-param-reassign": 0,
-         "implicit-arrow-linebreak": 0
+         "implicit-arrow-linebreak": 0,
+         "arrow-body-style":0
 
 
     }
