@@ -1,4 +1,5 @@
 import * as axios from 'axios';
+import { getToken } from './local-storage';
 import APP_SERVER_API_BASE_URL, {
   APP_SERVER_API_CALLS,
   GITHUB_BASE_URL,
@@ -18,9 +19,12 @@ export const authenticateUser = async (
   return result;
 };
 
-export const getCurrentUserInfo = async (): Promise<axios.AxiosResponse> => {
-  const result = await performGetRequest(
-    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
-  );
-  return result;
+export const getCurrentUserInfo = async (): Promise<axios.AxiosResponse|boolean> => {
+  if (getToken()) {
+    const result = await performGetRequest(
+      `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
+    );
+    return result;
+  }
+  return false;
 };

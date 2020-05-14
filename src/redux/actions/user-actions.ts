@@ -1,8 +1,8 @@
 import { GithubUser } from '../../types/common-types';
 
-export default function setUser(user: GithubUser) {
+export default function setUserAction(user: GithubUser) {
   return {
-    type: 'INSERT_GOALS',
+    type: 'SET_USER',
     payload: user,
   };
 }

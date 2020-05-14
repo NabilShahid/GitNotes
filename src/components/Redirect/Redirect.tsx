@@ -2,11 +2,13 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { authenticateUser, getCurrentUserInfo } from '../../services/apis';
+import { authenticateUser } from '../../services/apis';
 import { CLIENT_ID } from '../../constants/github-app-info';
 import { saveToken } from '../../services/local-storage';
-import setUser from '../../redux/actions/user-actions';
+import setUserAction from '../../redux/actions/user-actions';
 import { GithubUser } from '../../types/common-types';
+import ROUTES from '../../constants/routes';
+import history from '../../services/history';
 
 const validateSession = async (): Promise<string> => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -15,12 +17,19 @@ const validateSession = async (): Promise<string> => {
   return result.data;
 };
 
-const OAuthRedirect: React.SFC = () => {
+export interface OAuthRedirectProps {
+  setUser: Function;
+}
+
+const OAuthRedirect: React.SFC<OAuthRedirectProps> = () => {
   useEffect(() => {
     validateSession().then(async (result: string) => {
       saveToken(result);
-      const res = await getCurrentUserInfo();
-      console.log(res);
+      history.push(ROUTES.Home);
+      //   const res = await getCurrentUserInfo();
+      //   if (res) {
+      //     setUser(getSpecificKeysObjectFromMapping(UserKeys, res));
+      //   }
     });
   }, []);
   return (
@@ -33,7 +42,7 @@ const OAuthRedirect: React.SFC = () => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setUser: (userPayload: GithubUser) => {
-      dispatch(setUser(userPayload));
+      dispatch(setUserAction(userPayload));
     },
   };
 };
