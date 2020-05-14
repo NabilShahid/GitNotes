@@ -1,5 +1,6 @@
 import { ReduxAction } from '../../types/common-types';
 import { UserState } from '../../types/states';
+import REDUX_ACTION_NAMES from '../../constants/redux-actions-names';
 
 const userReducer = (
   state = {
@@ -10,7 +11,7 @@ const userReducer = (
   let newState: UserState;
 
   switch (action.type) {
-    case 'SET_USER':
+    case REDUX_ACTION_NAMES.SetUser:
       newState = { ...state };
       newState.User = action.payload;
       state = newState;
