@@ -2,6 +2,7 @@ import * as React from 'react';
 import { authenticateUser, getCurrentUserInfo } from '../../services/apis';
 import { CLIENT_ID } from '../../constants/github-app-info';
 import { saveToken } from '../../services/local-storage';
+import { useEffect } from 'react';
 
 const validateSession = async (): Promise<string> => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -11,11 +12,14 @@ const validateSession = async (): Promise<string> => {
 };
 
 const OAuthRedirect: React.SFC = () => {
-  validateSession().then(async (result: string) => {
-    saveToken(result);
-    const res = await getCurrentUserInfo();
-    console.log(res);
-  });
+  useEffect(() => {
+      alert("NIgga");
+    validateSession().then(async (result: string) => {
+      saveToken(result);
+      const res = await getCurrentUserInfo();
+      console.log(res);
+    });
+  }, []);
   return (
     <div>
       Redirecting...
