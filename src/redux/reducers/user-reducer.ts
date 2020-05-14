@@ -1,8 +1,9 @@
-import { ReduxAction, UserState } from '../../types/common-types';
+import { ReduxAction } from '../../types/common-types';
+import { UserState } from '../../types/states';
 
 const userReducer = (
   state = {
-    User: { Email: '', Name: '' },
+    User: { AvatarUrl: '', Login: '' },
   },
   action: ReduxAction,
 ) => {
