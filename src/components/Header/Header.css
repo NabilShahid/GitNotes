@@ -2,6 +2,7 @@
     background-color: var(--main-color);
     display: flex;
     padding: 15px 0px;
+    max-height: 70px;
 }
 .header-emumba-logo{
     width: 100%;

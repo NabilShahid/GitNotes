@@ -1,33 +1,53 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { REDIRECT_URL } from '../../constants/github-app-info';
 import ActionButton from '../ActionButton/ActionButton';
 import './Header.css';
 import SearchBar from '../SearchBar/SearchBar';
 import eMumbaLogo from '../../assets/images/emumba-white-logo.png'; // Tell webpack this JS file uses this image
+import { getToken } from '../../services/local-storage';
+import UserAvatar from '../UserAvatar/UserAvatar';
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  avatarUrl?: string;
+}
 
-const Header: React.SFC<HeaderProps> = () => (
+const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => (
   <header className="header material-box-shadow">
     <div style={{ flex: '0 1 6%' }} />
-    <div className="text-align-right" style={{ flex: '0 0 15%' }}>
+    <div
+      className="text-align-right"
+      style={{ flex: '0 0 15%', marginTop: '5px' }}
+    >
       <img src={eMumbaLogo} className="header-emumba-logo" alt="EMUMBA" />
     </div>
-    <div style={{ flex: '0 1 41%' }} />
-    <div className="text-align-right" style={{ flex: '0 0 25%' }}>
+    <div style={{ flex: '0 1 45%' }} />
+    <div
+      className="text-align-right"
+      style={{ flex: '0 0 25%', marginTop: '3px' }}
+    >
       <SearchBar input={() => {}} placeholder="Search Notes" />
     </div>
-    <div style={{ flex: '0 0 16%', textAlign: 'left', margin: '2px 0 0 22px' }}>
-      <ActionButton
-        click={() => {
-          window.location.href = REDIRECT_URL;
-        }}
-        text="Login"
-      />
+    <div style={{ flex: '0 0 12%', textAlign: 'left', margin: '5px 0 0 22px' }}>
+      {getToken() ? (
+        <UserAvatar src={avatarUrl || ''} width="35px" />
+      ) : (
+        <ActionButton
+          click={() => {
+            window.location.href = REDIRECT_URL;
+          }}
+          text="Login"
+        />
+      )}
     </div>
-
-    {/* <a href={REDIRECT_URL}>Login</a> */}
   </header>
 );
-
-export default Header;
+/**
+ * state to props mapping
+ */
+const mapStateToProps = (state: any) => {
+  return {
+    avatarUrl: state.userReducer.User.AvatarUrl,
+  };
+};
+export default connect(mapStateToProps, null)(Header);

@@ -19,7 +19,9 @@ export const authenticateUser = async (
   return result;
 };
 
-export const getCurrentUserInfo = async (): Promise<axios.AxiosResponse|boolean> => {
+export const getCurrentUserInfo = async (): Promise<
+  axios.AxiosResponse | boolean
+> => {
   if (getToken()) {
     const result = await performGetRequest(
       `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
@@ -27,4 +29,13 @@ export const getCurrentUserInfo = async (): Promise<axios.AxiosResponse|boolean>
     return result;
   }
   return false;
+};
+export const getPublicGists = async (
+  page: number,
+  perPage: number,
+): Promise<axios.AxiosResponse | boolean> => {
+  const result = await performGetRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.PublicGists}?page=${page}&perPage=${perPage}`,
+  );
+  return result;
 };
