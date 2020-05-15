@@ -2,14 +2,14 @@ import * as React from 'react';
 
 export interface UserAvatarProps {
   src: string;
-  width: string;
+  style: any;
 }
 
 const UserAvatar: React.SFC<UserAvatarProps> = ({
   src,
-  width,
+  style,
 }: UserAvatarProps) => {
-  return <img src={src} style={{ width, borderRadius: '50%' }} alt="User" />;
+  return <img src={src} style={{ ...style, borderRadius: '50%' }} alt="User" />;
 };
 
 export default UserAvatar;

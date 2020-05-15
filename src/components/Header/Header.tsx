@@ -28,9 +28,19 @@ const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => (
     >
       <SearchBar input={() => {}} placeholder="Search Notes" />
     </div>
-    <div style={{ flex: '0 0 12%', textAlign: 'left', margin: '5px 0 0 22px' }}>
+    <div
+      style={{
+        flex: '0 0 12%',
+        textAlign: 'left',
+        margin: '5px 0 0 22px',
+        height: 0,
+      }}
+    >
       {getToken() ? (
-        <UserAvatar src={avatarUrl || ''} width="35px" />
+        <UserAvatar
+          src={avatarUrl || ''}
+          style={{ width: '40px', marginTop: '-4px' }}
+        />
       ) : (
         <ActionButton
           click={() => {
