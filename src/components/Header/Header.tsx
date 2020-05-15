@@ -7,8 +7,22 @@ export interface HeaderProps {}
 
 const Header: React.SFC<HeaderProps> = () => (
   <header className="main-header">
-    <ActionButton text="Login" />
-    <a href={REDIRECT_URL}>Login</a>
+    <div className="text-align-right" style={{ flex: '0 0 18%' }}>
+      EMUMBA
+    </div>
+    <div className="text-align-right" style={{ flex: '0 0 60%' }}>
+      <input type="text" />
+    </div>
+    <div style={{ flex: '0 0 22%' }}>
+      <ActionButton
+        click={() => {
+          window.location.href = REDIRECT_URL;
+        }}
+        text="Login"
+      />
+    </div>
+
+    {/* <a href={REDIRECT_URL}>Login</a> */}
   </header>
 );
 
