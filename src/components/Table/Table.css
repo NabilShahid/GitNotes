@@ -1,11 +1,11 @@
 .table-header-row {
   display: flex;
   background-color: #def5ec;
-  padding: 10px 0;
+  padding: 13px 0;
 }
 .table-col {
   flex-basis: 20%;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 .table-body-row {
   display: flex;
