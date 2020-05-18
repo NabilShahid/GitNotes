@@ -6,8 +6,9 @@ export interface GistFileProps {}
 
 const GistFile: React.SFC<GistFileProps> = () => {
   return (
-    <div className="gist-file-container">
+    <div className="gist-file-container material-box-shadow">
       <CodeMirror
+        className="code-mirror-custom"
         value="<h1>I ♥ react-codemirror2</h1>"
         options={{
           mode: 'javascript',
