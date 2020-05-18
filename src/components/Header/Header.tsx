@@ -7,6 +7,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import eMumbaLogo from '../../assets/images/emumba-white-logo.png'; // Tell webpack this JS file uses this image
 import { getToken } from '../../services/local-storage';
 import UserAvatar from '../UserAvatar/UserAvatar';
+import history from '../../services/history';
+import ROUTES from '../../constants/routes';
 
 export interface HeaderProps {
   avatarUrl?: string;
@@ -16,8 +18,14 @@ const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => (
   <header className="header material-box-shadow">
     <div style={{ flex: '0 1 6%' }} />
     <div
-      className="text-align-right"
+      className="text-align-right cursor-pointer"
       style={{ flex: '0 0 15%', marginTop: '5px' }}
+      onClick={() => {
+        history.push(ROUTES.Home);
+      }}
+      role="button"
+      onKeyPress={() => {}}
+      tabIndex={0}
     >
       <img src={eMumbaLogo} className="header-emumba-logo" alt="EMUMBA" />
     </div>

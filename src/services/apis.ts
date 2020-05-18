@@ -33,7 +33,7 @@ export const getCurrentUserInfo = async (): Promise<
 export const getPublicGists = async (
   page: number,
   perPage: number,
-): Promise<axios.AxiosResponse | boolean> => {
+): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.PublicGists}?page=${page}&perPage=${perPage}`,
   );
@@ -41,7 +41,7 @@ export const getPublicGists = async (
 };
 export const getGist = async (
   gistId: string,
-): Promise<axios.AxiosResponse | boolean> => {
+): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
   );

@@ -20,10 +20,7 @@ const GistInfo: React.SFC<GistInfoProps> = ({
   return (
     <div className="gist-info-container">
       <div>
-        <UserAvatar
-          src="https://avatars3.githubusercontent.com/u/513457?v=4"
-          style={{ width: '45px' }}
-        />
+        <UserAvatar src={avatarUrl || ''} style={{ width: '45px' }} />
       </div>
       <div style={{ marginLeft: '10px' }}>
         <div className="gist-info-header blue-header">
