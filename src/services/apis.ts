@@ -39,3 +39,11 @@ export const getPublicGists = async (
   );
   return result;
 };
+export const getGist = async (
+  gistId: string,
+): Promise<axios.AxiosResponse | boolean> => {
+  const result = await performGetRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
+  );
+  return result;
+};

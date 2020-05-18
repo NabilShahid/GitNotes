@@ -31,7 +31,7 @@ function App({ setUser }: AppProps) {
     <div className="App">
       <Header />
       <Router history={history}>
-        <div>
+        <div className="App-content-container">
           <Switch>
             <Route path={ROUTES.Redirect}>
               <OAuthRedirect />

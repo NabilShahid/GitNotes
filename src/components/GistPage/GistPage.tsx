@@ -9,12 +9,12 @@ const GistPage: React.SFC<GistPageProps> = () => {
   const { id } = useParams();
   return (
     <>
-      {/* <div>
+      <div className="gist-page-container">
         User Gist:
         {id}
         <GistInfo />
-      </div> */}
-      <GistFile />
+        <GistFile />
+      </div>
     </>
   );
 };
