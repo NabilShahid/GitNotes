@@ -24,11 +24,11 @@ const GistInfo: React.SFC<GistInfoProps> = ({
       </div>
       <div style={{ marginLeft: '10px' }}>
         <div className="gist-info-header blue-header">
-          <span>RepoName / </span>
-          <b>File Name</b>
+          <span>{userName}/ </span>
+          <b>{gistName}</b>
         </div>
-        <div className="gist-info-subtitle">Created 7 hours ago</div>
-        <div className="gist-info-description">this was ok</div>
+        <div className="gist-info-subtitle">{created}</div>
+        <div className="gist-info-description">{description}</div>
       </div>
     </div>
   );
