@@ -52,12 +52,13 @@ const GistPage: React.SFC<GistPageProps> = () => {
           />
         </div>
       </div>
-
-      <GistFile
-        content={
-          gist.files && Object.values(gist.files as Array<any>)[0].content
-        }
-      />
+      {gist.files && (
+        <GistFile
+          showFileName
+          fileName={Object.keys(gist.files as Array<string>)[0]}
+          content={Object.values(gist.files as Array<any>)[0].content}
+        />
+      )}
     </div>
   );
 };

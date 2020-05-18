@@ -1,6 +1,6 @@
 .gist-file-container {
-  height: 400px;
-  width: 300px;
+  height: 540px;
+  width: 100%;
 }
 
 .code-mirror-custom {
@@ -13,4 +13,12 @@
 .CodeMirror-gutters {
   border-right: 0;
   background: white;
+}
+.gist-file-name {
+  border-bottom: 1px solid #c7c7c7;
+  padding: 6px 10px;
+  color: var(--header-blue-color);
+}
+.CodeMirror-scroll{
+  padding: 10px 30px;
 }
