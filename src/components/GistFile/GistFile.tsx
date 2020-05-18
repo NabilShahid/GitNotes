@@ -17,7 +17,7 @@ const GistFile: React.SFC<GistFileProps> = ({ content }: GistFileProps) => {
           theme: 'xq-light',
           lineNumbers: true,
         }}
-        onChange={(editor, data, value) => {}}
+        // onChange={(editor, data, value) => {}}
       />
     </div>
   );
