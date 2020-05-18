@@ -5,7 +5,7 @@ import APP_SERVER_API_BASE_URL, {
   GITHUB_BASE_URL,
   GITHUB_API_CALLS,
 } from '../constants/api-info';
-import { performGetRequest } from './request-methods';
+import { performGetRequest, performPostRequest } from './request-methods';
 
 export default 1;
 
@@ -30,6 +30,7 @@ export const getCurrentUserInfo = async (): Promise<
   }
   return false;
 };
+
 export const getPublicGists = async (
   page: number,
   perPage: number,
@@ -51,4 +52,36 @@ export const getGistContent = async (
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(rawUrl, { responseType: 'text' });
   return result;
+};
+
+export const forkGist = async (
+  gistId: string,
+): Promise<axios.AxiosResponse | boolean> => {
+  if (getToken()) {
+    const result = await performPostRequest(
+      `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}`,
+      {
+        description: 'Hello World Examples',
+        public: true,
+        files: {
+          'hello_world.rb': {
+            content:
+              'class HelloWorld\n   def initialize(name)\n      @name = name.capitalize\n   end\n   def sayHi\n      puts "Hello !"\n   end\nend\n\nhello = HelloWorld.new("World")\nhello.sayHi',
+          },
+          'hello_world.py': {
+            content:
+              'class HelloWorld:\n\n    def __init__(self, name):\n        self.name = name.capitalize()\n       \n    def sayHi(self):\n        print "Hello " + self.name + "!"\n\nhello = HelloWorld("world")\nhello.sayHi()',
+          },
+          'hello_world_ruby.txt': {
+            content: 'Run `ruby hello_world.rb` to print Hello World',
+          },
+          'hello_world_python.txt': {
+            content: 'Run `python hello_world.py` to print Hello World',
+          },
+        },
+      },
+    );
+    return result;
+  }
+  return false;
 };

@@ -27,8 +27,8 @@ const GistInfo: React.SFC<GistInfoProps> = ({
           <span>{userName}/ </span>
           <b>{gistName}</b>
         </div>
-        <div className="gist-info-subtitle">{created}</div>
-        <div className="gist-info-description">{description}</div>
+        <div className="gist-info-subtitle">Created 1 hour ago</div>
+        <div className="gist-info-description">For all</div>
       </div>
     </div>
   );

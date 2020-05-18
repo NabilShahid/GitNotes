@@ -6,7 +6,7 @@ export const performGetRequest = async (
   url: string,
   config: axios.AxiosRequestConfig = {},
 ): Promise<AxiosResponse> => {
-  const token = getToken() || 'hello';
+  const token = getToken() || '';
 
   config.headers = {
     Authorization: `token ${token}`,
@@ -15,7 +15,17 @@ export const performGetRequest = async (
   const result = await axios.default.get(url, config);
   return result;
 };
-export const performPostRequest = () => {
-  const a = 1;
-  return a;
+export const performPostRequest = async (
+  url: string,
+  data: Object,
+  config: axios.AxiosRequestConfig = {},
+): Promise<AxiosResponse> => {
+  const token = getToken() || '';
+
+  config.headers = {
+    Authorization: `token ${token}`,
+  };
+  // cleanup required
+  const result = await axios.default.post(url, data, config);
+  return result;
 };

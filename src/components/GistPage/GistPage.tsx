@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import GistInfo from '../GistInfo/GistInfo';
 import GistFile from '../GistFile/GistFile';
-import { getGist } from '../../services/apis';
+import { getGist, forkGist } from '../../services/apis';
 import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
@@ -32,7 +32,24 @@ const GistPage: React.SFC<GistPageProps> = () => {
           </div>
         )}
         <div className="gist-page-actions">
-          <IconButton text="Fork" withCount count={10} icon={ICONS.ForkIcon} />
+          <IconButton
+            text="Fork"
+            withCount
+            count={gist.forks && gist.forks.length}
+            icon={ICONS.ForkIcon}
+            click={() => {
+              forkGist(gist.id).then(() => {});
+            }}
+          />
+          <IconButton
+            text="Star"
+            withCount
+            count={gist.forks && gist.forks.length}
+            icon={ICONS.StarIcon}
+            click={() => {
+              forkGist(gist.id).then(() => {});
+            }}
+          />
         </div>
       </div>
 
