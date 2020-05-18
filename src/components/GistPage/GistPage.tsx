@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import GistInfo from '../GistInfo/GistInfo';
 import GistFile from '../GistFile/GistFile';
 import { getGist } from '../../services/apis';
+import './GistPage.css';
 
 export interface GistPageProps {}
 
@@ -18,13 +19,16 @@ const GistPage: React.SFC<GistPageProps> = () => {
   }, []);
   return (
     <div className="gist-page-container">
-      {gist.owner && (
-        <GistInfo
-          avatarUrl={gist.owner.avatar_url}
-          userName={gist.owner.login}
-          gistName={Object.keys(gist.files)[0]}
-        />
-      )}
+      <div className="gist-page-action-panel">
+        {gist.owner && (
+          <GistInfo
+            avatarUrl={gist.owner.avatar_url}
+            userName={gist.owner.login}
+            gistName={Object.keys(gist.files)[0]}
+          />
+        )}
+        <div className="gist-page-actions">Add Edit</div>
+      </div>
 
       <GistFile
         content={
