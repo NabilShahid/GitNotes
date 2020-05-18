@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 import { getCurrentUserInfo } from '../../services/apis';
 import { getSpecificKeysObjectFromMapping } from '../../services/common-methods';
 import UserKeys from '../../constants/api-keys-mapping';
-import setUserAction from '../../redux/actions/user-actions';
-import { GithubUser } from '../../types/common-types';
 import PublicGists from '../PublicGists/PublicGists';
 
 export interface MainProps {
@@ -22,12 +18,4 @@ const Main: React.SFC<MainProps> = ({ setUser }: MainProps) => {
   }, []);
   return <PublicGists />;
 };
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    setUser: (userPayload: GithubUser) => {
-      dispatch(setUserAction(userPayload));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Main);
+export default Main;

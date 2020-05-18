@@ -4,6 +4,7 @@ import './Table.css';
 import { useEffect, useState } from 'react';
 import { getPublicGists } from '../../services/apis';
 import UserAvatar from '../UserAvatar/UserAvatar';
+import history from '../../services/history';
 
 export interface TableProps {}
 
@@ -29,7 +30,15 @@ const Table: React.SFC<TableProps> = () => {
         {gists.length > 0 &&
           gists.map((gist: any) => {
             return (
-              <div className="table-body-row">
+              <div
+                className="table-body-row"
+                onClick={() => {
+                  history.push(`gist/${gist.id}`);
+                }}
+                role="button"
+                onKeyPress={() => {}}
+                tabIndex={0}
+              >
                 <div className="table-col">
                   <div style={{ display: 'flex' }}>
                     <div>
@@ -44,7 +53,9 @@ const Table: React.SFC<TableProps> = () => {
                 <div className="table-col">
                   {moment(gist.created_at).format('DD-MMM-YYYY')}
                 </div>
-                <div className="table-col">{moment(gist.created_at).format('HH:mm A')}</div>
+                <div className="table-col">
+                  {moment(gist.created_at).format('HH:mm A')}
+                </div>
                 <div className="table-col">{gist.description}</div>
                 <div className="table-col">{Object.keys(gist.files)[0]}</div>
               </div>
