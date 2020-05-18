@@ -1,4 +1,6 @@
 @import './constants/style-vals.css';
+@import '../node_modules/codemirror/lib/codemirror.css';
+@import '../node_modules/codemirror/theme/material.css';
 
 body {
   margin: 0;
