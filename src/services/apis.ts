@@ -5,7 +5,11 @@ import APP_SERVER_API_BASE_URL, {
   GITHUB_BASE_URL,
   GITHUB_API_CALLS,
 } from '../constants/api-info';
-import { performGetRequest, performPostRequest, performPutRequest } from './request-methods';
+import {
+  performGetRequest,
+  performPostRequest,
+  performPutRequest,
+} from './request-methods';
 
 export default 1;
 
@@ -46,6 +50,15 @@ export const getPublicGists = async (
 export const getGist = async (gistId: string): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
+    true,
+  );
+  return result;
+};
+export const getUserGists = async (
+  userName: string,
+): Promise<axios.AxiosResponse> => {
+  const result = await performGetRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Users}/${userName}/gists`,
     true,
   );
   return result;

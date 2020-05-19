@@ -6,6 +6,7 @@ export enum APP_SERVER_API_CALLS {
 export const GITHUB_BASE_URL = 'https://api.github.com';
 export enum GITHUB_API_CALLS {
   User = 'user',
+  Users = 'users',
   PublicGists='gists/public',
   Gist='gist',
   Gists='gists'
