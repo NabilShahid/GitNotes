@@ -15,6 +15,7 @@ export const authenticateUser = async (
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${APP_SERVER_API_BASE_URL}/${APP_SERVER_API_CALLS.AuthenticateUser}?client_id=${clientId}&code=${code}`,
+    true,
   );
   return result;
 };
@@ -25,6 +26,7 @@ export const getCurrentUserInfo = async (): Promise<
   if (getToken()) {
     const result = await performGetRequest(
       `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
+      false,
     );
     return result;
   }
@@ -37,20 +39,15 @@ export const getPublicGists = async (
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.PublicGists}?page=${page}&perPage=${perPage}`,
+    true,
   );
   return result;
 };
 export const getGist = async (gistId: string): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
+    true,
   );
-  return result;
-};
-
-export const getGistContent = async (
-  rawUrl: string,
-): Promise<axios.AxiosResponse> => {
-  const result = await performGetRequest(rawUrl, { responseType: 'text' });
   return result;
 };
 
@@ -61,6 +58,7 @@ export const forkGist = async (
     const result = await performPostRequest(
       `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}/forks`,
       {},
+      false,
     );
     return result;
   }
