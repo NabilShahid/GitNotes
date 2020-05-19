@@ -14,6 +14,7 @@ import PublicGists from './components/PublicGists/PublicGists';
 import { getCurrentUserInfo } from './services/apis';
 import { getSpecificKeysObjectFromMapping } from './services/common-methods';
 import UserKeys from './constants/api-keys-mapping';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 export interface AppProps {
   setUser: Function;
@@ -38,6 +39,9 @@ function App({ setUser }: AppProps) {
             </Route>
             <Route path={ROUTES.Gist}>
               <GistPage />
+            </Route>
+            <Route path={ROUTES.Profile}>
+              <ProfilePage />
             </Route>
             <Route path={ROUTES.Home}>
               <PublicGists />
