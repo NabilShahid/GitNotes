@@ -1,6 +1,7 @@
 .gist-file-container {
   height: 540px;
   width: 100%;
+  margin-bottom: 170px;
 }
 
 .code-mirror-custom {
@@ -22,3 +23,6 @@
 .CodeMirror-scroll{
   padding: 10px 30px;
 }
+/* .CodeMirror-sizer{
+  min-width: 100px !important;
+} */

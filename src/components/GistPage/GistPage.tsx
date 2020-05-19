@@ -9,14 +9,20 @@ import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
 
-export interface GistPageProps {}
+export interface GistPageProps {
+  gistId?: string;
+  fileHeight?: string;
+}
 
-const GistPage: React.SFC<GistPageProps> = () => {
+const GistPage: React.SFC<GistPageProps> = ({
+  gistId,
+  fileHeight,
+}: GistPageProps) => {
   const { id } = useParams();
   const [gist, setGist]: [any, Function] = React.useState({});
   const [forksCount, setForksCount] = React.useState(0);
   useEffect(() => {
-    getGist(id).then(async (res: AxiosResponse) => {
+    getGist(gistId || id).then(async (res: AxiosResponse) => {
       setGist(res.data);
       setForksCount(res.data.forks.length);
     });
@@ -61,6 +67,7 @@ const GistPage: React.SFC<GistPageProps> = () => {
           showFileName
           fileName={Object.keys(gist.files as Array<string>)[0]}
           content={Object.values(gist.files as Array<any>)[0].content}
+          height={fileHeight}
         />
       )}
     </div>

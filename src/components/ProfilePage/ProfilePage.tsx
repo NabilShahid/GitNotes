@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import './ProfilePage.css';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import { getUserGists } from '../../services/apis';
+import GistPage from '../GistPage/GistPage';
 
 export interface ProfilePageProps {
   avatarUrl?: string;
@@ -14,9 +15,11 @@ const ProfilePage: React.SFC<ProfilePageProps> = ({
   avatarUrl,
   login,
 }: ProfilePageProps) => {
+  const [gists, setGists] = React.useState([]);
   useEffect(() => {
     if (login) {
       getUserGists(login || '').then((res) => {
+        setGists(res.data);
         console.log(res);
       });
     }
@@ -26,6 +29,17 @@ const ProfilePage: React.SFC<ProfilePageProps> = ({
       <div className="profile-page-info-container">
         <UserAvatar src={avatarUrl || ''} style={{ width: '220px' }} />
         <div className="profile-page-login-name">{login}</div>
+        <button
+          type="button"
+          className="profile-page-github-profile-button cursor-pointer"
+        >
+          View GitHub Profile
+        </button>
+      </div>
+      <div className="profile-page-gists-container">
+        {gists.map((gist: any) => {
+          return <GistPage gistId={gist.id} fileHeight="200px" />;
+        })}
       </div>
     </div>
   );

@@ -7,15 +7,17 @@ export interface GistFileProps {
   content: string;
   fileName: string;
   showFileName?: boolean;
+  height?: string;
 }
 
 const GistFile: React.SFC<GistFileProps> = ({
   content,
   showFileName,
   fileName,
+  height,
 }: GistFileProps) => {
   return (
-    <div className="gist-file-container material-box-shadow">
+    <div style={{ height }} className="gist-file-container material-box-shadow">
       <div className="gist-file-name">
         <ICONS.CodeIcon
           style={{ height: '13px', width: '13px', margin: '0 5px -2px 0' }}
@@ -29,6 +31,7 @@ const GistFile: React.SFC<GistFileProps> = ({
           mode: 'javascript',
           theme: 'xq-light',
           lineNumbers: true,
+          lineWrapping: true,
         }}
         // onChange={(editor, data, value) => {}}
       />
