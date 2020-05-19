@@ -1,20 +1,14 @@
 import * as React from 'react';
 import moment from 'moment';
 import './Table.css';
-import { useEffect, useState } from 'react';
-import { getPublicGists } from '../../services/apis';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import history from '../../services/history';
 
-export interface TableProps {}
+export interface TableProps {
+  gists: Array<any>;
+}
 
-const Table: React.SFC<TableProps> = () => {
-  const [gists, setGists]: [any, any] = useState([]);
-  useEffect(() => {
-    getPublicGists(1, 50).then((res: any) => {
-      setGists(res.data);
-    });
-  }, []);
+const Table: React.SFC<TableProps> = ({ gists }: TableProps) => {
   return (
     <div className="table-container">
       <div className="table-header">
