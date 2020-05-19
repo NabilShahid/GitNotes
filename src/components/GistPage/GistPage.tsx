@@ -14,9 +14,11 @@ export interface GistPageProps {}
 const GistPage: React.SFC<GistPageProps> = () => {
   const { id } = useParams();
   const [gist, setGist]: [any, Function] = React.useState({});
+  const [forksCount, setForksCount] = React.useState(0);
   useEffect(() => {
     getGist(id).then(async (res: AxiosResponse) => {
       setGist(res.data);
+      setForksCount(res.data.forks.length);
     });
   }, []);
   return (
@@ -35,10 +37,12 @@ const GistPage: React.SFC<GistPageProps> = () => {
           <IconButton
             text="Fork"
             withCount
-            count={gist.forks && gist.forks.length}
+            count={forksCount}
             icon={ICONS.ForkIcon}
             click={() => {
-              forkGist(gist.id).then(() => {});
+              forkGist(gist.id).then(() => {
+                setForksCount(forksCount + 1);
+              });
             }}
           />
           <IconButton
