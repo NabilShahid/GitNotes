@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import GistInfo from '../GistInfo/GistInfo';
 import GistFile from '../GistFile/GistFile';
-import { getGist, forkGist, starGist } from '../../services/apis';
+import { getGist, forkGist, starGist, updateGist } from '../../services/apis';
 import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
@@ -22,10 +22,15 @@ const GistPage: React.SFC<GistPageProps> = ({
   const [gist, setGist]: [any, Function] = React.useState({});
   const [forksCount, setForksCount] = React.useState(0);
   const [readOnly, setReadOnly]: [boolean, Function] = React.useState(true);
+  let updatedFileConent = '';
+  const getUpdatedContent = (value: string) => {
+    updatedFileConent = value;
+  };
   useEffect(() => {
     getGist(gistId || id).then(async (res: AxiosResponse) => {
       setGist(res.data);
       setForksCount(res.data.forks.length);
+      updatedFileConent = Object.values(res.data.files as Array<any>)[0].content;
     });
   }, []);
   return (
@@ -54,6 +59,13 @@ const GistPage: React.SFC<GistPageProps> = ({
               text="Save"
               icon={ICONS.SaveIcon}
               click={() => {
+                updateGist(gist.id, {
+                  files: {
+                    [Object.keys(gist.files as Array<string>)[0]]: {
+                      content: updatedFileConent,
+                    },
+                  },
+                });
                 setReadOnly(true);
               }}
             />
@@ -95,6 +107,7 @@ const GistPage: React.SFC<GistPageProps> = ({
           showFileName
           fileName={Object.keys(gist.files as Array<string>)[0]}
           content={Object.values(gist.files as Array<any>)[0].content}
+          getUpdatedContent={getUpdatedContent}
           height={fileHeight}
           readOnly={readOnly}
         />

@@ -9,6 +9,7 @@ import {
   performGetRequest,
   performPostRequest,
   performPutRequest,
+  performPatchRequest,
 } from './request-methods';
 
 export default 1;
@@ -60,6 +61,17 @@ export const getUserGists = async (
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Users}/${userName}/gists`,
     true,
+  );
+  return result;
+};
+export const updateGist = async (
+  gistId: string,
+  updatePayload: any,
+): Promise<axios.AxiosResponse> => {
+  const result = await performPatchRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
+    updatePayload,
+    false,
   );
   return result;
 };

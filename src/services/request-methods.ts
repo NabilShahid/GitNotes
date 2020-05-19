@@ -54,3 +54,15 @@ export const performPutRequest = async (
   const result = await axios.default.put(url, data, config);
   return result;
 };
+export const performPatchRequest = async (
+  url: string,
+  data: Object,
+  isPublic: boolean,
+  config: axios.AxiosRequestConfig = {},
+): Promise<AxiosResponse> => {
+  const token = getToken() || '';
+  config.headers = setAuthTokenHeaderIfNotPublicApi(isPublic, token);
+  // cleanup required
+  const result = await axios.default.patch(url, data, config);
+  return result;
+};

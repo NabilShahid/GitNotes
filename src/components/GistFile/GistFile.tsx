@@ -9,6 +9,7 @@ export interface GistFileProps {
   readOnly: boolean;
   showFileName?: boolean;
   height?: string;
+  getUpdatedContent?: Function;
 }
 
 const GistFile: React.SFC<GistFileProps> = ({
@@ -17,6 +18,7 @@ const GistFile: React.SFC<GistFileProps> = ({
   fileName,
   height,
   readOnly,
+  getUpdatedContent,
 }: GistFileProps) => {
   return (
     <div style={{ height }} className="gist-file-container material-box-shadow">
@@ -36,7 +38,10 @@ const GistFile: React.SFC<GistFileProps> = ({
           lineWrapping: true,
           readOnly,
         }}
-        // onChange={(editor, data, value) => {}}
+        onChange={(editor, data, value) => {
+          console.log(value);
+          if (typeof getUpdatedContent === 'function') getUpdatedContent(value);
+        }}
       />
     </div>
   );
