@@ -25,6 +25,7 @@ const IconButton: React.SFC<IconButtonProps> = ({
           border: 0,
           background: 'transparent',
           color: 'var(--header-blue-color)',
+          cursor: 'pointer',
         }}
         onClick={click}
       >

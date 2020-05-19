@@ -21,6 +21,7 @@ const GistPage: React.SFC<GistPageProps> = ({
   const { id } = useParams();
   const [gist, setGist]: [any, Function] = React.useState({});
   const [forksCount, setForksCount] = React.useState(0);
+  const [readOnly, setReadOnly]: [boolean, Function] = React.useState(true);
   useEffect(() => {
     getGist(gistId || id).then(async (res: AxiosResponse) => {
       setGist(res.data);
@@ -40,6 +41,24 @@ const GistPage: React.SFC<GistPageProps> = ({
           </div>
         )}
         <div className="gist-page-actions">
+          <IconButton
+            text="Edit"
+            icon={ICONS.EditIcon}
+            click={() => {
+              forkGist(gist.id).then(() => {
+                setForksCount(forksCount + 1);
+              });
+            }}
+          />
+          <IconButton
+            text="Delete"
+            icon={ICONS.DeleteIcon}
+            click={() => {
+              forkGist(gist.id).then(() => {
+                setForksCount(forksCount + 1);
+              });
+            }}
+          />
           <IconButton
             text="Fork"
             withCount
@@ -68,6 +87,7 @@ const GistPage: React.SFC<GistPageProps> = ({
           fileName={Object.keys(gist.files as Array<string>)[0]}
           content={Object.values(gist.files as Array<any>)[0].content}
           height={fileHeight}
+          readOnly={false}
         />
       )}
     </div>

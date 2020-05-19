@@ -6,6 +6,7 @@ import ICONS from '../../constants/icons';
 export interface GistFileProps {
   content: string;
   fileName: string;
+  readOnly: boolean;
   showFileName?: boolean;
   height?: string;
 }
@@ -15,6 +16,7 @@ const GistFile: React.SFC<GistFileProps> = ({
   showFileName,
   fileName,
   height,
+  readOnly,
 }: GistFileProps) => {
   return (
     <div style={{ height }} className="gist-file-container material-box-shadow">
@@ -32,6 +34,7 @@ const GistFile: React.SFC<GistFileProps> = ({
           theme: 'xq-light',
           lineNumbers: true,
           lineWrapping: true,
+          readOnly,
         }}
         // onChange={(editor, data, value) => {}}
       />
