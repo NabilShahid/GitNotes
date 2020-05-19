@@ -1,0 +1,13 @@
+.profile-page-container {
+  display: flex;
+  margin-top: 60px;
+}
+.profile-page-info-container {
+  flex: 0 40%;
+  text-align: center;
+}
+
+.profile-page-login-name {
+  margin: 27px 0;
+  font-size: 22px;
+}
