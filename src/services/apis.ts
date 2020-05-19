@@ -5,7 +5,7 @@ import APP_SERVER_API_BASE_URL, {
   GITHUB_BASE_URL,
   GITHUB_API_CALLS,
 } from '../constants/api-info';
-import { performGetRequest, performPostRequest } from './request-methods';
+import { performGetRequest, performPostRequest, performPutRequest } from './request-methods';
 
 export default 1;
 
@@ -57,6 +57,20 @@ export const forkGist = async (
   if (getToken()) {
     const result = await performPostRequest(
       `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}/forks`,
+      {},
+      false,
+    );
+    return result;
+  }
+  return false;
+};
+
+export const starGist = async (
+  gistId: string,
+): Promise<axios.AxiosResponse | boolean> => {
+  if (getToken()) {
+    const result = await performPutRequest(
+      `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}/star`,
       {},
       false,
     );

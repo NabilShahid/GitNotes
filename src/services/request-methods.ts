@@ -41,3 +41,16 @@ export const performPostRequest = async (
   const result = await axios.default.post(url, data, config);
   return result;
 };
+
+export const performPutRequest = async (
+  url: string,
+  data: Object,
+  isPublic: boolean,
+  config: axios.AxiosRequestConfig = {},
+): Promise<AxiosResponse> => {
+  const token = getToken() || '';
+  config.headers = setAuthTokenHeaderIfNotPublicApi(isPublic, token);
+  // cleanup required
+  const result = await axios.default.put(url, data, config);
+  return result;
+};
