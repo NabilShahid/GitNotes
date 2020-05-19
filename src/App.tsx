@@ -21,13 +21,14 @@ export interface AppProps {
 }
 
 function App({ setUser }: AppProps) {
-  useEffect(() => {
+  function setUserInStore() {
     getCurrentUserInfo().then((res) => {
       if (typeof res === 'object') {
         setUser(getSpecificKeysObjectFromMapping(UserKeys, res.data));
       }
     });
-  }, []);
+  }
+  useEffect(setUserInStore, []);
   return (
     <div className="App">
       <Header />
@@ -35,7 +36,7 @@ function App({ setUser }: AppProps) {
         <div className="App-content-container">
           <Switch>
             <Route path={ROUTES.Redirect}>
-              <OAuthRedirect />
+              <OAuthRedirect onTokenSet={setUserInStore} />
             </Route>
             <Route path={ROUTES.Gist}>
               <GistPage />

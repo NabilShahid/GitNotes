@@ -28,14 +28,15 @@ export const authenticateUser = async (
 export const getCurrentUserInfo = async (): Promise<
   axios.AxiosResponse | boolean
 > => {
-  if (getToken()) {
+  try {
     const result = await performGetRequest(
       `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.User}`,
       false,
     );
     return result;
+  } catch {
+    return false;
   }
-  return false;
 };
 
 export const getPublicGists = async (
