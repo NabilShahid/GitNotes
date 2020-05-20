@@ -1,12 +1,13 @@
 .gist-file-container {
   height: 540px;
   width: 100%;
-  margin-bottom: 170px;
+  /* margin-bottom: 170px; */
+  overflow: hidden;
 }
 
 .code-mirror-custom {
   width: 100%;
-  height: 100%;
+  height: 94%;
 }
 .CodeMirror {
   min-height: 100%;

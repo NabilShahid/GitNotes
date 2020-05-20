@@ -14,7 +14,10 @@ const GistCard: React.SFC<GistCardProps> = ({ gist }: GistCardProps) => {
   const [gistContent, setGistContent]: [string, Function] = React.useState('');
   useEffect(() => {
     getGist(gist.id).then(async (res: AxiosResponse) => {
-      setGistContent(Object.values(res.data.files as Array<any>)[0].content);
+      setGistContent(
+        Object.values(res.data.files as Array<any>)[0].content.slice(0, 100),
+      );
+      // setGistContent('Object.values(res.data.files as Array<any>)[0].content');
     });
   }, []);
   return (

@@ -34,7 +34,7 @@ const GistFile: React.SFC<GistFileProps> = ({
         className="code-mirror-custom"
         value={content}
         options={{
-          mode: 'javascript',
+          mode: '',
           theme: 'xq-light',
           lineNumbers: true,
           lineWrapping: true,
