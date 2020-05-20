@@ -2,6 +2,7 @@ enum ROUTES {
   Home = '/',
   Redirect = '/redirect',
   Gist = '/gist/:id',
-  Profile= '/profile'
+  Profile= '/profile',
+  Starred= '/starred'
 }
 export default ROUTES;

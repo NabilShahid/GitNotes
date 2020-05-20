@@ -8,6 +8,7 @@ import ROUTES from './constants/routes';
 import Header from './components/Header/Header';
 import history from './services/history';
 import GistPage from './components/GistPage/GistPage';
+import StarredGists from './components/StarredGists/StarredGists';
 import { GithubUser } from './types/common-types';
 import setUserAction from './redux/actions/user-actions';
 import PublicGists from './components/PublicGists/PublicGists';
@@ -43,6 +44,9 @@ function App({ setUser }: AppProps) {
             </Route>
             <Route path={ROUTES.Profile}>
               <ProfilePage />
+            </Route>
+            <Route path={ROUTES.Starred}>
+              <StarredGists />
             </Route>
             <Route path={ROUTES.Home}>
               <PublicGists />
