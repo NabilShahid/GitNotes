@@ -40,7 +40,9 @@ const Table: React.SFC<TableProps> = ({ gists }: TableProps) => {
                   history.push(`gist/${gist.id}`);
                 }}
                 role="button"
-                onKeyPress={() => {}}
+                onKeyPress={() => {
+                  history.push(`gist/${gist.id}`);
+                }}
                 tabIndex={0}
               >
                 <div className="table-col">

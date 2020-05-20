@@ -5,6 +5,7 @@ import { getGist } from '../../services/apis';
 import GistInfo from '../GistInfo/GistInfo';
 import GistFile from '../GistFile/GistFile';
 import './GistCard.css';
+import history from '../../services/history';
 
 export interface GistCardProps {
   gist: any;
@@ -21,7 +22,17 @@ const GistCard: React.SFC<GistCardProps> = ({ gist }: GistCardProps) => {
     });
   }, []);
   return (
-    <div className="gist-card material-box-shadow">
+    <div
+      className="gist-card material-box-shadow cursor-pointer"
+      onClick={() => {
+        history.push(`gist/${gist.id}`);
+      }}
+      role="button"
+      onKeyPress={() => {
+        history.push(`gist/${gist.id}`);
+      }}
+      tabIndex={0}
+    >
       {gistContent && (
         <div style={{ width: '100%', overflow: 'hidden' }}>
           <GistFile
