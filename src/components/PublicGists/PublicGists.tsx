@@ -13,6 +13,7 @@ export interface PublicGistsProps {
 }
 
 const iconStyle = { width: '22px', height: '22px' };
+let timeout: NodeJS.Timeout;
 const PublicGists: React.SFC<PublicGistsProps> = ({
   searchText,
 }: PublicGistsProps) => {
@@ -21,19 +22,25 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
     GISTS_VIEW_TYPES.Table,
   );
   useEffect(() => {
-    if (searchText === '') {
-      getPublicGists(1, 50).then((res: any) => {
-        setGists(res.data);
-      });
-      return;
+    // throttling on search text
+    if (timeout) {
+      clearTimeout(timeout);
     }
-    getGist(searchText || '')
-      .then((res) => {
-        setGists([res.data]);
-      })
-      .catch(() => {
-        setGists([]);
-      });
+    timeout = setTimeout(() => {
+      if (searchText === '') {
+        getPublicGists(1, 50).then((res: any) => {
+          setGists(res.data);
+        });
+        return;
+      }
+      getGist(searchText || '')
+        .then((res) => {
+          setGists([res.data]);
+        })
+        .catch(() => {
+          setGists([]);
+        });
+    }, 1000);
   }, [searchText]);
   return (
     <div className="public-gists-main-container">
