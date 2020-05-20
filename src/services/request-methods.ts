@@ -28,6 +28,23 @@ export const performGetRequest = async (
   const result = await axios.default.get(url, config);
   return result;
 };
+export const performDeleteRequest = async (
+  url: string,
+  isPublic: boolean,
+  config: axios.AxiosRequestConfig = {},
+): Promise<AxiosResponse> => {
+  const token = getToken() || '';
+  config.headers = setAuthTokenHeaderIfNotPublicApi(isPublic, token);
+
+  if (!isPublic) {
+    config.headers = {
+      Authorization: `token ${token}`,
+    };
+  }
+
+  const result = await axios.default.delete(url, config);
+  return result;
+};
 
 export const performPostRequest = async (
   url: string,

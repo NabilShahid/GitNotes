@@ -4,7 +4,13 @@ import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GistInfo from '../GistInfo/GistInfo';
-import { getGist, forkGist, starGist, updateGist } from '../../services/apis';
+import {
+  getGist,
+  forkGist,
+  starGist,
+  updateGist,
+  deleteGist,
+} from '../../services/apis';
 import GistFile from '../GistFile/GistFile';
 import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
@@ -41,7 +47,7 @@ const GistPage: React.SFC<GistPageProps> = ({
         .content;
     });
   }, []);
-  const userIsGistOwner=(gist.owner && gist.owner.login === login);
+  const userIsGistOwner = gist.owner && gist.owner.login === login;
   return (
     <div className="gist-page-container">
       <div className="gist-page-action-panel">
@@ -86,9 +92,7 @@ const GistPage: React.SFC<GistPageProps> = ({
               text="Delete"
               icon={ICONS.DeleteIcon}
               click={() => {
-                forkGist(gist.id).then(() => {
-                  setForksCount(forksCount + 1);
-                });
+                deleteGist(gist.id).then(() => {});
               }}
             />
           )}

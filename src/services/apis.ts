@@ -10,6 +10,7 @@ import {
   performPostRequest,
   performPutRequest,
   performPatchRequest,
+  performDeleteRequest,
 } from './request-methods';
 
 export default 1;
@@ -51,6 +52,13 @@ export const getPublicGists = async (
 };
 export const getGist = async (gistId: string): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
+    true,
+  );
+  return result;
+};
+export const deleteGist = async (gistId: string): Promise<axios.AxiosResponse> => {
+  const result = await performDeleteRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/${gistId}`,
     true,
   );
