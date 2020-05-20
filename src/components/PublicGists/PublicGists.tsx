@@ -9,7 +9,7 @@ import GISTS_VIEW_TYPES from '../../constants/common-consts';
 
 export interface PublicGistsProps {}
 
-const iconStyle = { width: '22px', height: '22px', fill: '#d9d9d9' };
+const iconStyle = { width: '22px', height: '22px' };
 const PublicGists: React.SFC<PublicGistsProps> = () => {
   const [gists, setGists]: [Array<any>, Function] = React.useState([]);
   const [currentView, setCurrentView]: [string, Function] = React.useState(
@@ -23,10 +23,16 @@ const PublicGists: React.SFC<PublicGistsProps> = () => {
   return (
     <div className="public-gists-main-container">
       <div className="text-align-right" style={{ margin: '20px 0px' }}>
-        <div>
+        <div className="cursor-pointer">
           <div className="public-gists-right-seperator">
             <ICONS.GridViewIcon
-              style={iconStyle}
+              style={{
+                ...iconStyle,
+                fill:
+                  currentView === GISTS_VIEW_TYPES.Grid
+                    ? 'var(--main-color)'
+                    : '#d9d9d9',
+              }}
               onClick={() => {
                 setCurrentView(GISTS_VIEW_TYPES.Grid);
               }}
@@ -34,7 +40,13 @@ const PublicGists: React.SFC<PublicGistsProps> = () => {
           </div>
           <div style={{ display: 'inline-block' }}>
             <ICONS.ListViewIcon
-              style={iconStyle}
+              style={{
+                ...iconStyle,
+                fill:
+                  currentView === GISTS_VIEW_TYPES.Table
+                    ? 'var(--main-color)'
+                    : '#d9d9d9',
+              }}
               onClick={() => {
                 setCurrentView(GISTS_VIEW_TYPES.Table);
               }}

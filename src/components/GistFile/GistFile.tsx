@@ -22,12 +22,14 @@ const GistFile: React.SFC<GistFileProps> = ({
 }: GistFileProps) => {
   return (
     <div style={{ height }} className="gist-file-container material-box-shadow">
-      <div className="gist-file-name">
-        <ICONS.CodeIcon
-          style={{ height: '13px', width: '13px', margin: '0 5px -2px 0' }}
-        />
-        {showFileName && fileName}
-      </div>
+      {showFileName && (
+        <div className="gist-file-name">
+          <ICONS.CodeIcon
+            style={{ height: '13px', width: '13px', margin: '0 5px -2px 0' }}
+          />
+          {fileName}
+        </div>
+      )}
       <CodeMirror
         className="code-mirror-custom"
         value={content}

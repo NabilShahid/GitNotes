@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { AxiosResponse } from 'axios';
 import { getGist } from '../../services/apis';
 import GistInfo from '../GistInfo/GistInfo';
+import GistFile from '../GistFile/GistFile';
+import './GistCard.css';
 
 export interface GistCardProps {
   gist: any;
@@ -17,9 +19,18 @@ const GistCard: React.SFC<GistCardProps> = ({ gist }: GistCardProps) => {
   }, []);
   return (
     <div className="gist-card material-box-shadow">
-      {' '}
+      {gistContent && (
+        <div style={{ width: '100%', overflow: 'hidden' }}>
+          <GistFile
+            fileName={Object.keys(gist.files as Array<string>)[0]}
+            content={gistContent}
+            height="200px"
+            readOnly
+          />
+        </div>
+      )}
       {gist.owner && (
-        <div>
+        <div style={{ width: '100%' }}>
           <GistInfo
             avatarUrl={gist.owner.avatar_url}
             userName={gist.owner.login}
