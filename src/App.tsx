@@ -21,13 +21,13 @@ export interface AppProps {
 }
 
 function App({ setUser }: AppProps) {
-  function setUserInStore() {
+  const setUserInStore = () => {
     getCurrentUserInfo().then((res) => {
       if (typeof res === 'object') {
         setUser(getSpecificKeysObjectFromMapping(UserKeys, res.data));
       }
     });
-  }
+  };
   useEffect(setUserInStore, []);
   return (
     <div className="App">

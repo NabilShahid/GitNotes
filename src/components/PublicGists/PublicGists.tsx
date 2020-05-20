@@ -3,13 +3,18 @@ import { useEffect } from 'react';
 import './PublicGists.css';
 import ICONS from '../../constants/icons';
 import Table from '../Table/Table';
+import GistsGrid from '../GistsGrid/GistsGrid';
 import { getPublicGists } from '../../services/apis';
+import GISTS_VIEW_TYPES from '../../constants/common-consts';
 
 export interface PublicGistsProps {}
 
 const iconStyle = { width: '22px', height: '22px', fill: '#d9d9d9' };
 const PublicGists: React.SFC<PublicGistsProps> = () => {
   const [gists, setGists]: [Array<any>, Function] = React.useState([]);
+  const [currentView, setCurrentView]: [string, Function] = React.useState(
+    GISTS_VIEW_TYPES.Table,
+  );
   useEffect(() => {
     getPublicGists(1, 50).then((res: any) => {
       setGists(res.data);
@@ -20,15 +25,29 @@ const PublicGists: React.SFC<PublicGistsProps> = () => {
       <div className="text-align-right" style={{ margin: '20px 0px' }}>
         <div>
           <div className="public-gists-right-seperator">
-            <ICONS.GridViewIcon style={iconStyle} />
+            <ICONS.GridViewIcon
+              style={iconStyle}
+              onClick={() => {
+                setCurrentView(GISTS_VIEW_TYPES.Grid);
+              }}
+            />
           </div>
           <div style={{ display: 'inline-block' }}>
-            <ICONS.ListViewIcon style={iconStyle} />
+            <ICONS.ListViewIcon
+              style={iconStyle}
+              onClick={() => {
+                setCurrentView(GISTS_VIEW_TYPES.Table);
+              }}
+            />
           </div>
         </div>
       </div>
       <div>
-        <Table gists={gists} />
+        {currentView === GISTS_VIEW_TYPES.Table ? (
+          <Table gists={gists} />
+        ) : (
+          <GistsGrid gists={gists} />
+        )}
       </div>
     </div>
   );
