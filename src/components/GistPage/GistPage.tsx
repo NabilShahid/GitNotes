@@ -40,7 +40,7 @@ const GistPage: React.SFC<GistPageProps> = ({
     updatedFileConent = value;
   };
   useEffect(() => {
-    getGist(gistId || id).then(async (res: AxiosResponse) => {
+    getGist(gistId || id).then((res: AxiosResponse) => {
       setGist(res.data);
       setForksCount(res.data.forks.length);
       updatedFileConent = Object.values(res.data.files as Array<any>)[0]

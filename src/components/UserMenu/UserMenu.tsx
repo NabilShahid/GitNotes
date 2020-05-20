@@ -30,6 +30,12 @@ const UserMenu: React.SFC<UserMenuProps> = ({ login }: UserMenuProps) => {
         className="user-menu-item user-menu-clickable"
         role="button"
         tabIndex={0}
+        onClick={() => {
+          history.push(ROUTES.Starred);
+        }}
+        onKeyPress={() => {
+          history.push(ROUTES.Starred);
+        }}
       >
         Starred gists
       </div>
