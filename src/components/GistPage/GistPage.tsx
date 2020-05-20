@@ -2,9 +2,10 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 import GistInfo from '../GistInfo/GistInfo';
-import GistFile from '../GistFile/GistFile';
 import { getGist, forkGist, starGist, updateGist } from '../../services/apis';
+import GistFile from '../GistFile/GistFile';
 import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
@@ -12,16 +13,22 @@ import ICONS from '../../constants/icons';
 export interface GistPageProps {
   gistId?: string;
   fileHeight?: string;
+  login?: string;
 }
 
 const GistPage: React.SFC<GistPageProps> = ({
   gistId,
   fileHeight,
+  login,
 }: GistPageProps) => {
   const { id } = useParams();
   const [gist, setGist]: [any, Function] = React.useState({});
   const [forksCount, setForksCount] = React.useState(0);
   const [readOnly, setReadOnly]: [boolean, Function] = React.useState(true);
+  // const [userIsGistOwner, setUserIsGistOwner]: [
+  //   boolean,
+  //   Function,
+  // ] = React.useState(false);
   let updatedFileConent = '';
   const getUpdatedContent = (value: string) => {
     updatedFileConent = value;
@@ -30,9 +37,11 @@ const GistPage: React.SFC<GistPageProps> = ({
     getGist(gistId || id).then(async (res: AxiosResponse) => {
       setGist(res.data);
       setForksCount(res.data.forks.length);
-      updatedFileConent = Object.values(res.data.files as Array<any>)[0].content;
+      updatedFileConent = Object.values(res.data.files as Array<any>)[0]
+        .content;
     });
   }, []);
+  const userIsGistOwner=(gist.owner && gist.owner.login === login);
   return (
     <div className="gist-page-container">
       <div className="gist-page-action-panel">
@@ -46,7 +55,7 @@ const GistPage: React.SFC<GistPageProps> = ({
           </div>
         )}
         <div className="gist-page-actions">
-          {readOnly ? (
+          {readOnly && userIsGistOwner && (
             <IconButton
               text="Edit"
               icon={ICONS.EditIcon}
@@ -54,7 +63,8 @@ const GistPage: React.SFC<GistPageProps> = ({
                 setReadOnly(false);
               }}
             />
-          ) : (
+          )}
+          {!readOnly && (
             <IconButton
               text="Save"
               icon={ICONS.SaveIcon}
@@ -71,15 +81,17 @@ const GistPage: React.SFC<GistPageProps> = ({
             />
           )}
 
-          <IconButton
-            text="Delete"
-            icon={ICONS.DeleteIcon}
-            click={() => {
-              forkGist(gist.id).then(() => {
-                setForksCount(forksCount + 1);
-              });
-            }}
-          />
+          {userIsGistOwner && (
+            <IconButton
+              text="Delete"
+              icon={ICONS.DeleteIcon}
+              click={() => {
+                forkGist(gist.id).then(() => {
+                  setForksCount(forksCount + 1);
+                });
+              }}
+            />
+          )}
           <IconButton
             text="Fork"
             withCount
@@ -116,4 +128,12 @@ const GistPage: React.SFC<GistPageProps> = ({
   );
 };
 
-export default GistPage;
+/**
+ * state to props mapping
+ */
+const mapStateToProps = (state: any) => {
+  return {
+    login: state.userReducer.User.Login,
+  };
+};
+export default connect(mapStateToProps, null)(GistPage);
