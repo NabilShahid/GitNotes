@@ -10,6 +10,7 @@ import { getToken } from '../../services/local-storage';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import history from '../../services/history';
 import ROUTES from '../../constants/routes';
+import UserMenu from '../UserMenu/UserMenu';
 
 export interface HeaderProps {
   avatarUrl?: string;
@@ -53,11 +54,7 @@ const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => {
         }}
       >
         {getToken() ? (
-          <Popover
-            isOpen={popoverOpen}
-            place="below"
-            body={<div style={{ background: 'white' }}>Hello</div>}
-          >
+          <Popover isOpen={popoverOpen} place="below" body={<UserMenu login="Nabil Shahid" />}>
             <button
               onClick={() => {
                 setPopoverOpen(!popoverOpen);

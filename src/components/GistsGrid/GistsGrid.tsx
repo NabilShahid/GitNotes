@@ -4,16 +4,20 @@ import './GistsGrid.css';
 
 export interface GridGistsProps {
   gists: Array<any>;
+  rowSize?: number;
 }
 
-const GridGists: React.SFC<GridGistsProps> = ({ gists }: GridGistsProps) => {
-  const getGistsRow = (startIndex: number, rowSize: number) => {
+const GridGists: React.SFC<GridGistsProps> = ({
+  gists,
+  rowSize,
+}: GridGistsProps) => {
+  const getGistsRow = (startIndex: number, currentRowSize: number) => {
     const gistRow = [];
-    for (let i = startIndex; i < startIndex + rowSize; i += 1) {
+    for (let i = startIndex; i < startIndex + currentRowSize; i += 1) {
       gistRow.push(
         <div
           className="grid-gist-cell"
-          style={{ flexBasis: `${100 / rowSize}%`, padding: '15px' }}
+          style={{ flexBasis: `${100 / currentRowSize}%`, padding: '15px' }}
         >
           <GistCard gist={gists[i]} />
         </div>,
@@ -21,14 +25,16 @@ const GridGists: React.SFC<GridGistsProps> = ({ gists }: GridGistsProps) => {
     }
     return <div className="grid-gist-row">{gistRow}</div>;
   };
-  const getGistGrid = (rowSize: number) => {
+  const getGistGrid = (currentRowSize: number) => {
     const gistGrid = [];
-    for (let i = 0; i < gists.length; i += rowSize) {
-      gistGrid.push(getGistsRow(i, rowSize));
+    for (let i = 0; i < gists.length; i += currentRowSize) {
+      gistGrid.push(getGistsRow(i, currentRowSize));
     }
     return gistGrid;
   };
-  return <div className="grid-gists-container">{getGistGrid(3)}</div>;
+  return (
+    <div className="grid-gists-container">{getGistGrid(rowSize || 3)}</div>
+  );
 };
 
 export default GridGists;
