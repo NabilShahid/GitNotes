@@ -5,6 +5,7 @@ import './ProfilePage.css';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import { getUserGists } from '../../services/apis';
 import GistPage from '../GistPage/GistPage';
+import { GITHUB_PROFILE_BASE_URL } from '../../constants/github-app-info';
 
 export interface ProfilePageProps {
   avatarUrl?: string;
@@ -20,7 +21,6 @@ const ProfilePage: React.SFC<ProfilePageProps> = ({
     if (login) {
       getUserGists(login || '').then((res) => {
         setGists(res.data);
-        console.log(res);
       });
     }
   }, [login]);
@@ -32,6 +32,9 @@ const ProfilePage: React.SFC<ProfilePageProps> = ({
         <button
           type="button"
           className="profile-page-github-profile-button cursor-pointer"
+          onClick={() => {
+            window.open(GITHUB_PROFILE_BASE_URL + login, '_blank');
+          }}
         >
           View GitHub Profile
         </button>

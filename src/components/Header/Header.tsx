@@ -18,15 +18,13 @@ import setSearchText from '../../redux/actions/common-actions';
 
 export interface HeaderProps {
   avatarUrl?: string;
+  login?: string;
   setSearchTextAction?: Function;
 }
-// const popoverProps = {
-//   isOpen: true,
-//   body: [<h1 key="a">Popover Title</h1>, <div key="b">Popover contents</div>],
-// };
 const Header: React.SFC<HeaderProps> = ({
   avatarUrl,
   setSearchTextAction,
+  login,
 }: HeaderProps) => {
   const [popoverOpen, setPopoverOpen]: [boolean, Function] = React.useState(
     false,
@@ -86,7 +84,7 @@ const Header: React.SFC<HeaderProps> = ({
           <Popover
             isOpen={popoverOpen}
             place="below"
-            body={<UserMenu login="Nabil Shahid" />}
+            body={<UserMenu login={login || ''} />}
           >
             <button
               onClick={() => {
@@ -119,6 +117,7 @@ const Header: React.SFC<HeaderProps> = ({
 const mapStateToProps = (state: any) => {
   return {
     avatarUrl: state.userReducer.User.AvatarUrl,
+    login: state.userReducer.User.Login,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {

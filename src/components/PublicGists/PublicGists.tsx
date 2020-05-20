@@ -20,12 +20,6 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
   const [currentView, setCurrentView]: [string, Function] = React.useState(
     GISTS_VIEW_TYPES.Table,
   );
-  // const setPublicGists = () => {
-  //   getPublicGists(1, 50).then((res: any) => {
-  //     setGists(res.data);
-  //   });
-  // };
-  // useEffect(setPublicGists, []);
   useEffect(() => {
     if (searchText === '') {
       getPublicGists(1, 50).then((res: any) => {

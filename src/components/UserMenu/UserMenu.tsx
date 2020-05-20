@@ -2,6 +2,7 @@ import * as React from 'react';
 import './UserMenu.css';
 import history from '../../services/history';
 import ROUTES from '../../constants/routes';
+import { GITHUB_PROFILE_BASE_URL } from '../../constants/github-app-info';
 
 export interface UserMenuProps {
   login: string;
@@ -52,8 +53,12 @@ const UserMenu: React.SFC<UserMenuProps> = ({ login }: UserMenuProps) => {
       <div
         className="user-menu-item user-menu-clickable"
         role="button"
-        onClick={() => {}}
-        onKeyPress={() => {}}
+        onClick={() => {
+          window.open(GITHUB_PROFILE_BASE_URL + login, '_blank');
+        }}
+        onKeyPress={() => {
+          window.open(GITHUB_PROFILE_BASE_URL + login, '_blank');
+        }}
         tabIndex={0}
       >
         Your GitHub profile
