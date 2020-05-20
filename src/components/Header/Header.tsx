@@ -33,14 +33,14 @@ const Header: React.SFC<HeaderProps> = ({
   );
 
   const [showSearch, setShowSearch]: [boolean, Function] = React.useState(
-    false,
+    ROUTES_WITH_SEARCH.includes(history.location.pathname),
   );
   useEffect(() => {
     history.listen(() => {
       setShowSearch(ROUTES_WITH_SEARCH.includes(history.location.pathname));
       setPopoverOpen(false);
     });
-  });
+  }, []);
 
   return (
     <header className="header material-box-shadow">

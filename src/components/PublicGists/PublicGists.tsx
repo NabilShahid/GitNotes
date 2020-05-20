@@ -1,25 +1,46 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import './PublicGists.css';
 import ICONS from '../../constants/icons';
 import Table from '../Table/Table';
 import GistsGrid from '../GistsGrid/GistsGrid';
-import { getPublicGists } from '../../services/apis';
+import { getPublicGists, getGist } from '../../services/apis';
 import GISTS_VIEW_TYPES from '../../constants/common-consts';
 
-export interface PublicGistsProps {}
+export interface PublicGistsProps {
+  searchText?: string;
+}
 
 const iconStyle = { width: '22px', height: '22px' };
-const PublicGists: React.SFC<PublicGistsProps> = () => {
+const PublicGists: React.SFC<PublicGistsProps> = ({
+  searchText,
+}: PublicGistsProps) => {
   const [gists, setGists]: [Array<any>, Function] = React.useState([]);
   const [currentView, setCurrentView]: [string, Function] = React.useState(
     GISTS_VIEW_TYPES.Table,
   );
+  // const setPublicGists = () => {
+  //   getPublicGists(1, 50).then((res: any) => {
+  //     setGists(res.data);
+  //   });
+  // };
+  // useEffect(setPublicGists, []);
   useEffect(() => {
-    getPublicGists(1, 50).then((res: any) => {
-      setGists(res.data);
-    });
-  }, []);
+    if (searchText === '') {
+      getPublicGists(1, 50).then((res: any) => {
+        setGists(res.data);
+      });
+      return;
+    }
+    getGist(searchText || '')
+      .then((res) => {
+        setGists([res.data]);
+      })
+      .catch(() => {
+        setGists([]);
+      });
+  }, [searchText]);
   return (
     <div className="public-gists-main-container">
       <div className="text-align-right" style={{ margin: '20px 0px' }}>
@@ -64,5 +85,13 @@ const PublicGists: React.SFC<PublicGistsProps> = () => {
     </div>
   );
 };
+/**
+ * state to props mapping
+ */
+const mapStateToProps = (state: any) => {
+  return {
+    searchText: state.commonReducer.SearchText,
+  };
+};
 
-export default PublicGists;
+export default connect(mapStateToProps, null)(PublicGists);
