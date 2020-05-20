@@ -15,5 +15,8 @@
 }
 .gist-info-header {
   margin-top: -1px;
+  max-width: 255px;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
