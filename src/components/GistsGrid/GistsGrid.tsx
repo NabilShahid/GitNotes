@@ -1,4 +1,5 @@
 import * as React from 'react';
+import GistCard from '../GistCard/GistCard';
 
 export interface GridGistsProps {
   gists: Array<any>;
@@ -8,7 +9,11 @@ const GridGists: React.SFC<GridGistsProps> = ({ gists }: GridGistsProps) => {
   const getGistsRow = (startIndex: number, rowSize: number) => {
     const gistRow = [];
     for (let i = startIndex; i < startIndex + rowSize; i += 1) {
-      gistRow.push(<div>{gists[i].id}</div>);
+      gistRow.push(
+        <div>
+          <GistCard gist={gists[i]} />
+        </div>,
+      );
     }
     return <div className="grid-gist-row">{gistRow}</div>;
   };
@@ -21,7 +26,7 @@ const GridGists: React.SFC<GridGistsProps> = ({ gists }: GridGistsProps) => {
     }
     return <div>{gistGrid}</div>;
   };
-  return <div className="grid-gists-container">{getGistGrid(5)}</div>;
+  return <div className="grid-gists-container">{getGistGrid(3)}</div>;
 };
 
 export default GridGists;
