@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Popover from 'react-popover';
+import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { useEffect } from 'react';
 import { REDIRECT_URL } from '../../constants/github-app-info';
 import ActionButton from '../ActionButton/ActionButton';
 import './Header.css';
@@ -9,20 +12,36 @@ import eMumbaLogo from '../../assets/images/emumba-white-logo.png'; // Tell webp
 import { getToken } from '../../services/local-storage';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import history from '../../services/history';
-import ROUTES from '../../constants/routes';
+import ROUTES, { ROUTES_WITH_SEARCH } from '../../constants/routes';
 import UserMenu from '../UserMenu/UserMenu';
+import setSearchText from '../../redux/actions/common-actions';
 
 export interface HeaderProps {
   avatarUrl?: string;
+  setSearchTextAction?: Function;
 }
 // const popoverProps = {
 //   isOpen: true,
 //   body: [<h1 key="a">Popover Title</h1>, <div key="b">Popover contents</div>],
 // };
-const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => {
+const Header: React.SFC<HeaderProps> = ({
+  avatarUrl,
+  setSearchTextAction,
+}: HeaderProps) => {
   const [popoverOpen, setPopoverOpen]: [boolean, Function] = React.useState(
     false,
   );
+
+  const [showSearch, setShowSearch]: [boolean, Function] = React.useState(
+    false,
+  );
+  useEffect(() => {
+    history.listen(() => {
+      setShowSearch(ROUTES_WITH_SEARCH.includes(history.location.pathname));
+      setPopoverOpen(false);
+    });
+  });
+
   return (
     <header className="header material-box-shadow">
       <div style={{ flex: '0 1 6%' }} />
@@ -43,7 +62,17 @@ const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => {
         className="text-align-right"
         style={{ flex: '0 0 25%', marginTop: '3px' }}
       >
-        <SearchBar input={() => {}} placeholder="Search Notes" />
+        {showSearch && (
+          <SearchBar
+            input={(event) => {
+              if (typeof setSearchTextAction === 'function') {
+                const element = event.currentTarget as HTMLInputElement;
+                setSearchTextAction(element.value);
+              }
+            }}
+            placeholder="Search Notes"
+          />
+        )}
       </div>
       <div
         style={{
@@ -54,7 +83,11 @@ const Header: React.SFC<HeaderProps> = ({ avatarUrl }: HeaderProps) => {
         }}
       >
         {getToken() ? (
-          <Popover isOpen={popoverOpen} place="below" body={<UserMenu login="Nabil Shahid" />}>
+          <Popover
+            isOpen={popoverOpen}
+            place="below"
+            body={<UserMenu login="Nabil Shahid" />}
+          >
             <button
               onClick={() => {
                 setPopoverOpen(!popoverOpen);
@@ -88,4 +121,11 @@ const mapStateToProps = (state: any) => {
     avatarUrl: state.userReducer.User.AvatarUrl,
   };
 };
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setSearchTextAction: (searchText: string) => {
+      dispatch(setSearchText(searchText));
+    },
+  };
+};
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

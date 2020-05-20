@@ -11,7 +11,7 @@ const commonReducer = (
   let newState: CommonState;
 
   switch (action.type) {
-    case REDUX_ACTION_NAMES.SetUser:
+    case REDUX_ACTION_NAMES.SetSearchText:
       newState = { ...state };
       newState.SearchText = action.payload;
       state = newState;

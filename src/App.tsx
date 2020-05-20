@@ -32,8 +32,8 @@ function App({ setUser }: AppProps) {
   useEffect(setUserInStore, []);
   return (
     <div className="App">
-      <Header />
       <Router history={history}>
+        <Header />
         <div className="App-content-container">
           <Switch>
             <Route path={ROUTES.Redirect}>
