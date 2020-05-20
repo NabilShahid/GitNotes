@@ -1,9 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 import { ReduxAction } from '../types/common-types';
 import userReducer from './reducers/user-reducer';
+import commonReducer from './reducers/common-reducer';
 
 const appReducer = combineReducers({
   userReducer,
+  commonReducer,
 });
 /**
  * root reducer to empty all reducer states
