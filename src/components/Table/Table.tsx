@@ -5,6 +5,9 @@ import UserAvatar from '../UserAvatar/UserAvatar';
 import history from '../../services/history';
 import ICONS from '../../constants/icons';
 import { forkGist, starGist } from '../../services/apis';
+import confirmDialog, { alertDialog } from '../../services/dialogService';
+import CONFIRM_MESSAGES from '../../constants/confirm-messages';
+import ALERT_MESSAGES from '../../constants/alert-messages';
 
 export interface TableProps {
   gists: Array<any>;
@@ -70,16 +73,24 @@ const Table: React.SFC<TableProps> = ({ gists }: TableProps) => {
                 >
                   {' '}
                   <ICONS.StarIcon
-                    onClick={() => {
-                      forkGist(gist.id).then(() => {
-                        // setForksCount(forksCount + 1);
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      confirmDialog(CONFIRM_MESSAGES.StarGist).then(() => {
+                        starGist(gist.id).then(() => {
+                          alertDialog(ALERT_MESSAGES.GistStarred);
+                        });
                       });
                     }}
                     style={tableIconStyle}
                   />
                   <ICONS.ForkIcon
-                    onClick={() => {
-                      starGist(gist.id).then(() => {});
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      confirmDialog(CONFIRM_MESSAGES.ForkGist).then(() => {
+                        forkGist(gist.id).then(() => {
+                          alertDialog(ALERT_MESSAGES.GistForked);
+                        });
+                      });
                     }}
                     style={{ ...tableIconStyle, marginLeft: '20px' }}
                   />
@@ -87,6 +98,11 @@ const Table: React.SFC<TableProps> = ({ gists }: TableProps) => {
               </div>
             );
           })}
+        {gists.length === 0 && (
+          <div style={{ textAlign: 'center', marginTop: '10px' }}>
+            No Data Available...
+          </div>
+        )}
       </div>
     </div>
   );

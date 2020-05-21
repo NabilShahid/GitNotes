@@ -111,8 +111,11 @@ const GistPage: React.SFC<GistPageProps> = ({
             count={forksCount}
             icon={ICONS.ForkIcon}
             click={() => {
-              forkGist(gist.id).then(() => {
-                setForksCount(forksCount + 1);
+              confirmDialog(CONFIRM_MESSAGES.ForkGist).then(() => {
+                forkGist(gist.id).then(() => {
+                  alertDialog(ALERT_MESSAGES.GistForked);
+                  setForksCount(forksCount + 1);
+                });
               });
             }}
           />
@@ -122,7 +125,11 @@ const GistPage: React.SFC<GistPageProps> = ({
             count={gist.forks && gist.forks.length}
             icon={ICONS.StarIcon}
             click={() => {
-              starGist(gist.id).then(() => {});
+              confirmDialog(CONFIRM_MESSAGES.StarGist).then(() => {
+                starGist(gist.id).then(() => {
+                  alertDialog(ALERT_MESSAGES.GistStarred);
+                });
+              });
             }}
           />
         </div>
