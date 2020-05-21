@@ -31,6 +31,7 @@
 .App-content-container{
   margin: 0 9% 0 7%;
   text-align: left;
+  overflow: auto;
 }
 
 @keyframes App-logo-spin {
