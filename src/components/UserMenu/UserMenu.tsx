@@ -3,6 +3,7 @@ import './UserMenu.css';
 import history from '../../services/history';
 import ROUTES from '../../constants/routes';
 import { GITHUB_PROFILE_BASE_URL } from '../../constants/github-app-info';
+import { signOutRoutine } from '../../services/common-methods';
 
 export interface UserMenuProps {
   login: string;
@@ -79,8 +80,12 @@ const UserMenu: React.SFC<UserMenuProps> = ({ login }: UserMenuProps) => {
       <div
         className="user-menu-item user-menu-clickable"
         role="button"
-        onClick={() => {}}
-        onKeyPress={() => {}}
+        onClick={() => {
+          signOutRoutine();
+        }}
+        onKeyPress={() => {
+          signOutRoutine();
+        }}
         tabIndex={0}
       >
         Sign out

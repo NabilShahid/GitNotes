@@ -1,3 +1,6 @@
+import confirmDialog from './dialogService';
+import CONFIRM_MESSAGES from '../constants/confirm-messages';
+
 // cleanup_required
 export default 1;
 export function getSpecificKeysObject(keys: Array<string>, object: any) {
@@ -12,4 +15,11 @@ export function getSpecificKeysObjectFromMapping(mapping: any, object: any) {
     prev[curr] = object[mapping[curr]];
     return prev;
   }, {});
+}
+
+export function signOutRoutine() {
+  confirmDialog(CONFIRM_MESSAGES.SignOut).then(() => {
+    localStorage.clear();
+    window.location.reload();
+  });
 }
