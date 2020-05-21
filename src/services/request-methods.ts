@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { getToken } from './local-storage';
 
 const setAuthTokenHeaderIfNotPublicApi = (isPublic: boolean, token: string) => {
-  if (false) {
+  if (isPublic) {
     return {};
   }
   return {
