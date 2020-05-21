@@ -18,6 +18,19 @@ const UserMenu: React.SFC<UserMenuProps> = ({ login }: UserMenuProps) => {
         className="user-menu-item user-menu-clickable"
         role="button"
         onClick={() => {
+          history.push(ROUTES.Create);
+        }}
+        onKeyPress={() => {
+          history.push(ROUTES.Create);
+        }}
+        tabIndex={0}
+      >
+        Create gist
+      </div>
+      <div
+        className="user-menu-item user-menu-clickable"
+        role="button"
+        onClick={() => {
           history.push(ROUTES.Profile);
         }}
         onKeyPress={() => {

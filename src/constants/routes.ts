@@ -4,6 +4,7 @@ enum ROUTES {
   Gist = '/gist/:id',
   Profile = '/profile',
   Starred = '/starred',
+  Create= '/create'
 }
 export default ROUTES;
 
