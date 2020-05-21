@@ -6,12 +6,22 @@
 }
 
 .code-mirror-custom {
-  width: 100%;
-  height: 94%;
+  flex:1 1 auto;
+  margin-top:0;
+  height:100%;
+  position:relative;
 }
-.CodeMirror {
+/* .CodeMirror {
   min-height: 100%;
-}
+} */
+.CodeMirror {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  height:100%;
+  }
 .CodeMirror-gutters {
   border-right: 0;
   background: white;

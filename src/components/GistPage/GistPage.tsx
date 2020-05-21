@@ -117,8 +117,8 @@ const GistPage: React.SFC<GistPageProps> = ({
           />
           <IconButton
             text="Star"
-            withCount
-            count={gist.forks && gist.forks.length}
+            // withCount
+            // count={gist.forks && gist.forks.length}
             icon={ICONS.StarIcon}
             click={() => {
               confirmDialog(CONFIRM_MESSAGES.StarGist).then(() => {

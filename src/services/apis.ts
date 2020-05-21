@@ -60,7 +60,7 @@ export const getGist = async (gistId: string): Promise<axios.AxiosResponse> => {
 export const getStarredGists = async (): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
     `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}/starred`,
-    true,
+    false,
   );
   return result;
 };

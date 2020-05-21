@@ -37,6 +37,7 @@ const Header: React.SFC<HeaderProps> = ({
     history.listen(() => {
       setShowSearch(ROUTES_WITH_SEARCH.includes(history.location.pathname));
       setPopoverOpen(false);
+      if (typeof setSearchTextAction === 'function') setSearchTextAction('');
     });
   }, []);
 

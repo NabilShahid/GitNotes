@@ -18,7 +18,7 @@ const GridGists: React.SFC<GridGistsProps> = ({
         <div
           className="grid-gist-cell"
           key={i}
-          style={{ flexBasis: `${100 / currentRowSize}%`, padding: '15px' }}
+          style={{ flexBasis: `${100 / currentRowSize}%`, padding: '15px 30px' }}
         >
           {gists[i] && <GistCard gist={gists[i]} />}
         </div>,

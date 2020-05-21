@@ -16,9 +16,8 @@ const GistCard: React.SFC<GistCardProps> = ({ gist }: GistCardProps) => {
   useEffect(() => {
     getGist(gist.id).then(async (res: AxiosResponse) => {
       setGistContent(
-        Object.values(res.data.files as Array<any>)[0].content.slice(0, 100),
+        Object.values(res.data.files as Array<any>)[0].content.slice(0, 150),
       );
-      // setGistContent('Object.values(res.data.files as Array<any>)[0].content');
     });
   }, []);
   return (
@@ -44,7 +43,13 @@ const GistCard: React.SFC<GistCardProps> = ({ gist }: GistCardProps) => {
         </div>
       )}
       {gist.owner && (
-        <div style={{ width: '100%' }}>
+        <div
+          style={{
+            width: '100%',
+            borderTop: '1px solid #f1f1f1',
+            paddingTop: '20px',
+          }}
+        >
           <GistInfo
             avatarUrl={gist.owner.avatar_url}
             userName={gist.owner.login}
