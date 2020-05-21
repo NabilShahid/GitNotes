@@ -38,6 +38,7 @@ const Table: React.SFC<TableProps> = ({ gists }: TableProps) => {
           gists.map((gist: any) => {
             return (
               <div
+                key={gist.id}
                 className="table-body-row cursor-pointer"
                 onClick={() => {
                   history.push(`gist/${gist.id}`);

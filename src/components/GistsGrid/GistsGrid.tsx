@@ -17,13 +17,14 @@ const GridGists: React.SFC<GridGistsProps> = ({
       gistRow.push(
         <div
           className="grid-gist-cell"
+          key={i}
           style={{ flexBasis: `${100 / currentRowSize}%`, padding: '15px' }}
         >
           {gists[i] && <GistCard gist={gists[i]} />}
         </div>,
       );
     }
-    return <div className="grid-gist-row">{gistRow}</div>;
+    return <div className="grid-gist-row" key={startIndex}>{gistRow}</div>;
   };
   const getGistGrid = (currentRowSize: number) => {
     const gistGrid = [];

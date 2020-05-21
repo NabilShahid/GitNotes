@@ -8,4 +8,10 @@
 }
 .create-gist-control-container{
     flex-basis: 70%;
-} 
+}
+.create-gist-control{
+    border-radius: 2px;
+    width: 100%;
+    border: 0;
+    box-shadow: var(--material-box-shadow);
+}
