@@ -15,6 +15,7 @@ import GistFile from '../GistFile/GistFile';
 import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
+import confirmDialog, { alertDialog } from '../../services/dialogService';
 
 export interface GistPageProps {
   gistId?: string;
@@ -75,14 +76,16 @@ const GistPage: React.SFC<GistPageProps> = ({
               text="Save"
               icon={ICONS.SaveIcon}
               click={() => {
-                updateGist(gist.id, {
-                  files: {
-                    [Object.keys(gist.files as Array<string>)[0]]: {
-                      content: updatedFileConent,
+                confirmDialog().then(() => {
+                  updateGist(gist.id, {
+                    files: {
+                      [Object.keys(gist.files as Array<string>)[0]]: {
+                        content: updatedFileConent,
+                      },
                     },
-                  },
+                  }).then(() => alertDialog('Successfully Updated !'));
+                  setReadOnly(true);
                 });
-                setReadOnly(true);
               }}
             />
           )}

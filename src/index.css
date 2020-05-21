@@ -1,6 +1,8 @@
 @import './constants/style-vals.css';
 @import '../node_modules/codemirror/lib/codemirror.css';
 @import '../node_modules/codemirror/theme/material.css';
+@import '../node_modules/react-confirm-alert/src/react-confirm-alert.css';
+
 
 body {
   margin: 0;
@@ -40,4 +42,7 @@ code {
 .transparent-button{
   background: transparent;
   border:0;
+}
+.react-confirm-alert-button-group button{
+  background-color: var(--main-color);
 }
