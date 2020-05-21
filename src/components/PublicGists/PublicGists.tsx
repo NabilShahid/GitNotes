@@ -52,8 +52,8 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
     if (timeout) {
       clearTimeout(timeout);
     }
-    timeout = setTimeout(getGistWithSearchAndPageNumber, 1000);
-  }, [searchText]);
+    timeout = setTimeout(getGistWithSearchAndPageNumber, 500);
+  }, [searchText, currentPage]);
   return (
     <div className="public-gists-main-container">
       <div className="text-align-right" style={{ margin: '20px 0px' }}>
@@ -97,16 +97,18 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
       </div>
       <div>
         <PaginationControl
-          currentPage={1}
+          currentPage={currentPage}
           totalPages={totalPages}
           nextPage={() => {
             if (currentPage + 1 <= totalPages) {
               setCurrentPage(currentPage + 1);
+              // getGistWithSearchAndPageNumber();
             }
           }}
           prevPage={() => {
             if (currentPage - 1 >= 1) {
               setCurrentPage(currentPage - 1);
+              // getGistWithSearchAndPageNumber();
             }
           }}
         />
