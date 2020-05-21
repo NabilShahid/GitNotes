@@ -16,6 +16,8 @@ import './GistPage.css';
 import IconButton from '../IconButton/IconButton';
 import ICONS from '../../constants/icons';
 import confirmDialog, { alertDialog } from '../../services/dialogService';
+import ALERT_MESSAGES from '../../constants/alert-messages';
+import CONFIRM_MESSAGES from '../../constants/confirm-messages';
 
 export interface GistPageProps {
   gistId?: string;
@@ -76,14 +78,14 @@ const GistPage: React.SFC<GistPageProps> = ({
               text="Save"
               icon={ICONS.SaveIcon}
               click={() => {
-                confirmDialog().then(() => {
+                confirmDialog(CONFIRM_MESSAGES.UpdateGist).then(() => {
                   updateGist(gist.id, {
                     files: {
                       [Object.keys(gist.files as Array<string>)[0]]: {
                         content: updatedFileConent,
                       },
                     },
-                  }).then(() => alertDialog('Successfully Updated !'));
+                  }).then(() => alertDialog(ALERT_MESSAGES.GistUpdated));
                   setReadOnly(true);
                 });
               }}
@@ -95,7 +97,11 @@ const GistPage: React.SFC<GistPageProps> = ({
               text="Delete"
               icon={ICONS.DeleteIcon}
               click={() => {
-                deleteGist(gist.id).then(() => {});
+                confirmDialog(CONFIRM_MESSAGES.DeleteGist).then(() => {
+                  deleteGist(gist.id).then(() => {
+                    alertDialog(ALERT_MESSAGES.GistDeleted);
+                  });
+                });
               }}
             />
           )}
