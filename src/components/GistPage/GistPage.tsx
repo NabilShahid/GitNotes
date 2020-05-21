@@ -34,10 +34,6 @@ const GistPage: React.SFC<GistPageProps> = ({
   const [gist, setGist]: [any, Function] = React.useState({});
   const [forksCount, setForksCount] = React.useState(0);
   const [readOnly, setReadOnly]: [boolean, Function] = React.useState(true);
-  // const [userIsGistOwner, setUserIsGistOwner]: [
-  //   boolean,
-  //   Function,
-  // ] = React.useState(false);
   let updatedFileConent = '';
   const getUpdatedContent = (value: string) => {
     updatedFileConent = value;
