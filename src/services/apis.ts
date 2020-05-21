@@ -93,6 +93,16 @@ export const updateGist = async (
   );
   return result;
 };
+export const createGist = async (
+  createPayload: any,
+): Promise<axios.AxiosResponse> => {
+  const result = await performPostRequest(
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.Gists}`,
+    createPayload,
+    false,
+  );
+  return result;
+};
 
 export const forkGist = async (
   gistId: string,

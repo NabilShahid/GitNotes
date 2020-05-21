@@ -1,6 +1,7 @@
 .create-gist-row{
     display: flex;
     max-width: 600px;
+    margin: 25px 0;
 }
 .create-gist-label{
     flex-basis: 30%;
@@ -12,5 +13,13 @@
     border-radius: 2px;
     width: 100%;
     border: 0;
-    box-shadow: var(--matarial-box-shadow);
+    box-shadow: var(--material-box-shadow);
+}
+.create-gist-button{
+    border: 0;
+    padding: 7px 20px;
+    background: var(--main-color);
+    color: white;
+    box-shadow: var(--material-box-shadow);
+    border-radius: 2px;
 }
