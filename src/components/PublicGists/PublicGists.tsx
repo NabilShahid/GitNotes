@@ -23,15 +23,25 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
 }: PublicGistsProps) => {
   const [gists, setGists]: [Array<any>, Function] = React.useState([]);
   const [currentPage, setCurrentPage]: [number, Function] = React.useState(1);
+  const [loadingGists, setLoadingGists]: [boolean, Function] = React.useState(
+    true,
+  );
   const [totalPages, setTotalPages]: [number, Function] = React.useState(
     PUBLIC_GISTS_TOTAL_PAGES,
   );
   const [currentView, setCurrentView]: [string, Function] = React.useState(
     GISTS_VIEW_TYPES.Table,
   );
+  const setNextPage = () => {
+    if (currentPage + 1 <= totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   const getGistWithSearchAndPageNumber = () => {
+    setLoadingGists(true);
     if (searchText === '') {
       getPublicGists(currentPage, PUBLIC_GISTS_PAGE_SIZE).then((res: any) => {
+        setLoadingGists(false);
         setGists(res.data);
         setTotalPages(PUBLIC_GISTS_TOTAL_PAGES);
       });
@@ -39,10 +49,14 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
     }
     getGist(searchText || '')
       .then((res) => {
+        setCurrentPage(1);
+        setLoadingGists(false);
         setGists([res.data]);
         setTotalPages(1);
       })
       .catch(() => {
+        setCurrentPage(1);
+        setLoadingGists(false);
         setGists([]);
         setTotalPages(1);
       });
@@ -89,29 +103,48 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
         </div>
       </div>
       <div>
-        {currentView === GISTS_VIEW_TYPES.Table ? (
-          <Table gists={gists} />
-        ) : (
-          <GistsGrid gists={gists} />
-        )}
+        {loadingGists && 'Loading...'}
+        {!loadingGists &&
+          (currentView === GISTS_VIEW_TYPES.Table ? (
+            <Table gists={gists} />
+          ) : (
+            <GistsGrid gists={gists} />
+          ))}
       </div>
-      <div>
-        <PaginationControl
-          currentPage={currentPage}
-          totalPages={totalPages}
-          nextPage={() => {
-            if (currentPage + 1 <= totalPages) {
-              setCurrentPage(currentPage + 1);
-              // getGistWithSearchAndPageNumber();
-            }
-          }}
-          prevPage={() => {
-            if (currentPage - 1 >= 1) {
-              setCurrentPage(currentPage - 1);
-              // getGistWithSearchAndPageNumber();
-            }
-          }}
-        />
+      <div className="public-gists-pagination">
+        <div className="public-gists-pagination-next">
+          <button
+            type="button"
+            onClick={() => {
+              setNextPage();
+            }}
+            className="main-theme-button"
+          >
+            Next page{' '}
+            <ICONS.ArrowIcon
+              style={{
+                height: '17px',
+                width: '17px',
+                fill: 'white',
+                margin: '0 0 -4px 8px',
+              }}
+            />
+          </button>
+        </div>
+        <div className="public-gists-pagination-control">
+          <PaginationControl
+            currentPage={currentPage}
+            totalPages={totalPages}
+            nextPage={() => {
+              setNextPage();
+            }}
+            prevPage={() => {
+              if (currentPage - 1 >= 1) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ const CreateGist: React.SFC<CreateGistProps> = () => {
       <div className="create-gist-row" style={{ justifyContent: 'flex-end' }}>
         <button
           type="button"
-          className="create-gist-button"
+          className="main-theme-button"
           onClick={() => {
             if (!fileName || !gistContent) {
               alertDialog(ALERT_MESSAGES.CreateGistMissingFields);

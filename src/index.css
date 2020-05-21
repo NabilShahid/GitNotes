@@ -46,3 +46,12 @@ code {
 .react-confirm-alert-button-group button{
   background-color: var(--main-color);
 }
+.main-theme-button{
+  border: 0;
+  padding: 7px 20px;
+  background: var(--main-color);
+  color: white;
+  box-shadow: var(--material-box-shadow);
+  border-radius: 2px;
+  cursor: pointer;
+}

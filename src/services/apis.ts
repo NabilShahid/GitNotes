@@ -45,7 +45,7 @@ export const getPublicGists = async (
   perPage: number,
 ): Promise<axios.AxiosResponse> => {
   const result = await performGetRequest(
-    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.PublicGists}?page=${page}&perPage=${perPage}`,
+    `${GITHUB_BASE_URL}/${GITHUB_API_CALLS.PublicGists}?page=${page}&per_page=${perPage}`,
     true,
   );
   return result;

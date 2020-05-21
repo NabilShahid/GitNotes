@@ -3,5 +3,5 @@ enum GISTS_VIEW_TYPES {
   Table = 'table',
 }
 export default GISTS_VIEW_TYPES;
-export const PUBLIC_GISTS_PAGE_SIZE = 20;
+export const PUBLIC_GISTS_PAGE_SIZE = 10;
 export const PUBLIC_GISTS_TOTAL_PAGES = 50;

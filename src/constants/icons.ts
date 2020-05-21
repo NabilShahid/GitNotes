@@ -8,6 +8,7 @@ import { ReactComponent as DeleteIcon } from '../assets/icons/delete.svg';
 import { ReactComponent as SaveIcon } from '../assets/icons/save.svg';
 import { ReactComponent as BackIcon } from '../assets/icons/back.svg';
 import { ReactComponent as NextIcon } from '../assets/icons/next.svg';
+import { ReactComponent as ArrowIcon } from '../assets/icons/arrow.svg';
 
 const ICONS = {
   GridViewIcon,
@@ -20,6 +21,7 @@ const ICONS = {
   SaveIcon,
   BackIcon,
   NextIcon,
+  ArrowIcon,
 };
 
 export default ICONS;
