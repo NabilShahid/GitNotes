@@ -6,7 +6,11 @@ import ICONS from '../../constants/icons';
 import Table from '../Table/Table';
 import GistsGrid from '../GistsGrid/GistsGrid';
 import { getPublicGists, getGist } from '../../services/apis';
-import GISTS_VIEW_TYPES from '../../constants/common-consts';
+import GISTS_VIEW_TYPES, {
+  PUBLIC_GISTS_TOTAL_PAGES,
+  PUBLIC_GISTS_PAGE_SIZE,
+} from '../../constants/common-consts';
+import PaginationControl from '../PaginationControl/PaginationControl';
 
 export interface PublicGistsProps {
   searchText?: string;
@@ -18,29 +22,37 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
   searchText,
 }: PublicGistsProps) => {
   const [gists, setGists]: [Array<any>, Function] = React.useState([]);
+  const [currentPage, setCurrentPage]: [number, Function] = React.useState(1);
+  const [totalPages, setTotalPages]: [number, Function] = React.useState(
+    PUBLIC_GISTS_TOTAL_PAGES,
+  );
   const [currentView, setCurrentView]: [string, Function] = React.useState(
     GISTS_VIEW_TYPES.Table,
   );
+  const getGistWithSearchAndPageNumber = () => {
+    if (searchText === '') {
+      getPublicGists(currentPage, PUBLIC_GISTS_PAGE_SIZE).then((res: any) => {
+        setGists(res.data);
+        setTotalPages(PUBLIC_GISTS_TOTAL_PAGES);
+      });
+      return;
+    }
+    getGist(searchText || '')
+      .then((res) => {
+        setGists([res.data]);
+        setTotalPages(1);
+      })
+      .catch(() => {
+        setGists([]);
+        setTotalPages(1);
+      });
+  };
   useEffect(() => {
     // throttling on search text
     if (timeout) {
       clearTimeout(timeout);
     }
-    timeout = setTimeout(() => {
-      if (searchText === '') {
-        getPublicGists(1, 50).then((res: any) => {
-          setGists(res.data);
-        });
-        return;
-      }
-      getGist(searchText || '')
-        .then((res) => {
-          setGists([res.data]);
-        })
-        .catch(() => {
-          setGists([]);
-        });
-    }, 1000);
+    timeout = setTimeout(getGistWithSearchAndPageNumber, 1000);
   }, [searchText]);
   return (
     <div className="public-gists-main-container">
@@ -82,6 +94,22 @@ const PublicGists: React.SFC<PublicGistsProps> = ({
         ) : (
           <GistsGrid gists={gists} />
         )}
+      </div>
+      <div>
+        <PaginationControl
+          currentPage={1}
+          totalPages={totalPages}
+          nextPage={() => {
+            if (currentPage + 1 <= totalPages) {
+              setCurrentPage(currentPage + 1);
+            }
+          }}
+          prevPage={() => {
+            if (currentPage - 1 >= 1) {
+              setCurrentPage(currentPage - 1);
+            }
+          }}
+        />
       </div>
     </div>
   );
